@@ -17,7 +17,7 @@ export const productAdd = ({ product, price }) => {
 
   return (dispatch) => {
     firebase.database().ref(`/products`)
-      .push({ product, price: Number(price), createdBy: currentUser.uid })
+      .push({ product, price: Number(price), createdBy: currentUser.uid, quantity: 1 })
       .then(() => {
         dispatch({ type: PRODUCT_ADD })
       })

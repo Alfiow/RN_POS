@@ -6,6 +6,24 @@ import style from './CartStyles'
 
 class ListItem extends Component {
 
+  addRequested = product => {
+    // Check if products array contain the same product
+    let productExists = false;
+    let productIndex = -1;
+    this.props.products.forEach((p, idx) => {
+      if (product.id === p.id) {
+        productExists = true;
+        productIndex = idx;
+      }
+    })
+
+    if (productExists) {
+      this.props.incrementExistingItemQuantity(productIndex, product, (product.quantity += 1));
+    } else {
+      this.props.addToCart(product);
+    }
+  }
+
   render() {
     const { product, price } = this.props.produk
 

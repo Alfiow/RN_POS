@@ -25,7 +25,12 @@ class ProductList extends Component {
   }
 
   renderRow(produk) {
-    return <ListItem produk={produk} />
+    return ( 
+      <ListItem 
+        produk={produk}
+        products={this.props.products} 
+      />
+    )
   }
   
   render() {
