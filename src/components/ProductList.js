@@ -24,22 +24,20 @@ class ProductList extends Component {
     this.dataSource = ds.cloneWithRows(products)
   }
 
-  renderRow(produk) {
-    return ( 
-      <ListItem 
-        produk={produk}
-        products={this.props.products} 
-      />
-    )
-  }
+  // renderRow(produk) {
+  //   return ( 
+  //     <ListItem 
+  //       produk={produk} 
+  //     />
+  //   )
+  // }
   
   render() {
     //console.log(this.props);
     return (
-      <ListView
-        enableEmptySections
-        dataSource={this.dataSource}
-        renderRow={this.renderRow}
+      <ListItem
+        productList={this.dataSource}
+        products={this.props.products}
       />
     );
   }
