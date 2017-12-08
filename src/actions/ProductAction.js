@@ -25,10 +25,11 @@ export const productAdd = ({ product, price }) => {
 }
 
 export const productFetch = () => {
-  // const { currentUser } = firebase.auth();
+  const { currentUser } = firebase.auth();
 
   return (dispatch) => {
-    firebase.database().ref(`/products`)
+    //firebase.database().ref(`/products`).orderByChild("createdBy").equalTo(currentUser.uid)
+    firebase.database().ref('products')
       .on('value', snapshot => {
         dispatch({ type: PRODUCT_FETCH_SUCCESS, payload: snapshot.val() })
       })

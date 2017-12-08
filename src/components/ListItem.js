@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Text, TouchableWithoutFeedback, View } from 'react-native'
+import { View, Text, Container, Content, SwipeRow, Icon, Button, Card } from 'native-base';
 import { Actions } from 'react-native-router-flux'
-import { Card } from 'react-native-elements'
+
+import style from './CartStyles'
 
 class ListItem extends Component {
 
@@ -9,27 +10,38 @@ class ListItem extends Component {
     const { product, price } = this.props.produk
 
     return(
-      
-        <View>
-          <Card>
-            <Text style={styles.titleStyle}>
-              {product}
-            </Text>
-            <Text style={styles.titleStyle}>
-              {price}
-            </Text>
-          </Card>
-        </View>
-     
+      <View style={{ borderBottomWidth: 0.2 }}>
+        <Content scrollEnabled={false}>
+          <SwipeRow
+            disableRightSwipe
+            rightOpenValue={-100}
+            body={
+              <View style={style.CartItem}>
+                <Text style={{ paddingLeft: 10, flex: 0.5 }}>
+                  {product}
+                </Text>
+
+                <Text style={{ flex: 0.2 }}>
+                  {price}
+                </Text>
+              </View>
+            }
+            right={
+              <View style={style.CartItem}>
+              <Button success onPress={() => alert('Add')}>
+                <Icon active name="add" />
+              </Button>
+
+              <Button danger onPress={() => alert('Trash')}>
+                <Icon active name="trash" />
+              </Button>
+              </View>
+            }
+          />
+        </Content>
+      </View>
     )
   }
 }
-
-const styles = {
-  titleStyle: {
-    fontSize: 18,
-    paddingLeft: 15
-  }
-};
 
 export default ListItem

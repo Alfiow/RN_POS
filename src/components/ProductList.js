@@ -6,6 +6,7 @@ import { productFetch } from '../actions'
 import ListItem from './ListItem'
 
 class ProductList extends Component {
+
   componentWillMount() {
     this.props.productFetch()
     this.createDataSource(this.props)

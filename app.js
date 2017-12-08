@@ -32,7 +32,6 @@ export default class app extends Component {
     });
   }
 
-
   render() {
     return (
       <Provider store={store}>

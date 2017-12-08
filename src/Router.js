@@ -21,7 +21,7 @@ const RouterComponent = () => {
         <Scene key='signup' component={SignUp} title='Data Toko Anda' />
 
         <Drawer hideNavBar key='drawer' contentComponent={DrawerContent} drawerImage={MenuIcon}>
-          <Scene key='list' component={ProductList} tabBarStyle={styles.tabBarStyle} hideNavBar />
+          <Scene key='list' component={ProductList} tabBarStyle={styles.tabBarStyle} />
         </Drawer>
       </Stack>
     </Router>
@@ -30,7 +30,7 @@ const RouterComponent = () => {
 
 const styles = {
   tabBarStyle: {
-    backgroundColor: '#3b5998', // warna tab bar bawah
+    backgroundColor: 'blue',
   }
 };
 

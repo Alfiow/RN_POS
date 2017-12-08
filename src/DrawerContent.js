@@ -24,8 +24,8 @@ class DrawerContent extends React.Component {
 const styles = {
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     backgroundColor: 'transparent',
     borderWidth: 2,
     borderColor: '#3b5998',
