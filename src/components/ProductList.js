@@ -33,7 +33,8 @@ class ProductList extends Component {
   // }
   
   render() {
-    //console.log(this.props);
+    console.log(this.props.products)
+    console.log(this.props.produk)
     return (
       <ListItem
         productList={this.dataSource}
@@ -44,11 +45,11 @@ class ProductList extends Component {
 }
 
 const mapStateToProps = state => {
-  const products = _.map(state.products, (val, uid) => {
+  const products = _.map(state.products.products, (val, uid) => {
     return { ...val, uid };
   });
 
-  return { products };
+  return { products, produk: state.products.products }
 };
 
 export default connect(mapStateToProps, { productFetch })(ProductList);
