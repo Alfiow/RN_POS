@@ -12,3 +12,8 @@ export const NAME_CHANGED = 'name_changed'
 export const PRODUCT_UPDATE = 'product_update'
 export const PRODUCT_ADD = 'product_add'
 export const PRODUCT_FETCH_SUCCESS = 'product_fetch_success'
+
+export const AddToCart = 'ADD_CART'
+export const RemoveItemCart = 'REMOVE_CART'
+export const UpdateExistingItemQuantity = 'UPDATE_EXISTING_ITEM_QUANTITY'
+export const RemoveSingleItemFromCart = 'REMOVE_SINGLE_ITEM_FROM_CART'

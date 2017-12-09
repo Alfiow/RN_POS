@@ -2,8 +2,14 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { ListView, FlatList } from 'react-native'
-import { productFetch } from '../actions'
+import { productFetch, AddCart, UpdateExistingItemQuantityCart } from '../actions'
 import ListItem from './ListItem'
+import {
+  totalItemCountSelector,
+  totalPriceSelector,
+  deliverySelector,
+  collectionSelector
+} from '../config/selectors';
 
 class ProductList extends Component {
 
@@ -23,21 +29,14 @@ class ProductList extends Component {
 
     this.dataSource = ds.cloneWithRows(products)
   }
-
-  // renderRow(produk) {
-  //   return ( 
-  //     <ListItem 
-  //       produk={produk} 
-  //     />
-  //   )
-  // }
   
   render() {
     console.log(this.props.products)
-    console.log(this.props.produk)
     return (
       <ListItem
         productList={this.dataSource}
+        addToCart={this.props.addToCart}
+        incrementExistingItemQuantity={this.props.incrementExistingItemQuantity}
         products={this.props.products}
       />
     );
@@ -45,11 +44,17 @@ class ProductList extends Component {
 }
 
 const mapStateToProps = state => {
-  // const products = _.map(state.products.products, (val, uid) => {
-  //   return { ...val, uid };
-  // });
-
-  return { products : state.products.products }
+  return { 
+    products : state.products.products,
+    totalPrice: totalPriceSelector(state),
+    totalProducts: totalItemCountSelector(state),
+    deliveryEnabled: deliverySelector(state),
+    collectionEnabled: collectionSelector(state), 
+  }
 };
 
-export default connect(mapStateToProps, { productFetch })(ProductList);
+export default connect(mapStateToProps, { 
+  productFetch,
+  addToCart: AddCart,
+  incrementExistingItemQuantity: UpdateExistingItemQuantityCart  
+})(ProductList);

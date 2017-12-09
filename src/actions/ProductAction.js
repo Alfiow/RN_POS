@@ -2,7 +2,11 @@ import firebase from 'firebase'
 import {
   PRODUCT_UPDATE,
   PRODUCT_ADD,
-  PRODUCT_FETCH_SUCCESS 
+  PRODUCT_FETCH_SUCCESS,
+  AddToCart,
+  RemoveItemCart,
+  UpdateExistingItemQuantity,
+  RemoveSingleItemFromCart 
 } from './types'
 
 export const productUpdate = ({ prop, value }) => {
@@ -35,3 +39,37 @@ export const productFetch = () => {
       })
   }
 }
+
+export function AddCart(product) {
+  return {
+    type: AddToCart,
+    product,
+  };
+}
+
+export function RemoveCart(index, product) {
+  return {
+    type: RemoveItemCart,
+    index,
+    product,
+  };
+}
+
+export function UpdateExistingItemQuantityCart(index, product, quantity) {
+  return {
+    type: UpdateExistingItemQuantity,
+    index,
+    product,
+    quantity,
+  };
+}
+
+export function RemoveSingleItemCart(index, product, quantity) {
+  return {
+    type: RemoveSingleItemFromCart,
+    index,
+    product,
+    quantity,
+  };
+}
+

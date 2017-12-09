@@ -19,11 +19,11 @@ class ListItem extends Component {
       }
     })
 
-    // if (productExists) {
-    //   this.props.incrementExistingItemQuantity(productIndex, product, (product.quantity += 1));
-    // } else {
-    //   this.props.addToCart(product);
-    // }
+    if (productExists) {
+      this.props.incrementExistingItemQuantity(productIndex, product, (product.quantity += 1));
+    } else {
+      this.props.addToCart(product);
+    }
   }
 
   render() {
