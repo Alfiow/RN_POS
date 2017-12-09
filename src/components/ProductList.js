@@ -45,11 +45,11 @@ class ProductList extends Component {
 }
 
 const mapStateToProps = state => {
-  const products = _.map(state.products.products, (val, uid) => {
-    return { ...val, uid };
-  });
+  // const products = _.map(state.products.products, (val, uid) => {
+  //   return { ...val, uid };
+  // });
 
-  return { products, produk: state.products.products }
+  return { products : state.products.products }
 };
 
 export default connect(mapStateToProps, { productFetch })(ProductList);

@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import {
   PRODUCT_FETCH_SUCCESS
 } from '../actions/types'
@@ -11,9 +12,15 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case PRODUCT_FETCH_SUCCESS:
       return {
-        ...state, products : action.payload,
+        ...state,
+        products: action.payload,
+        products : _.map(action.payload, (val, uid) => {
+          return { ...val,
+            uid
+          }
+        })
       }
-      default:
+    default:
       return state
   }
 }
