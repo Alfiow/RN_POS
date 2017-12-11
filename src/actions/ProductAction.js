@@ -1,4 +1,5 @@
 import firebase from 'firebase'
+import { Actions } from 'react-native-router-flux'
 import {
   PRODUCT_UPDATE,
   PRODUCT_ADD,
@@ -21,9 +22,10 @@ export const productAdd = ({ product, price }) => {
 
   return (dispatch) => {
     firebase.database().ref(`/products`)
-      .push({ product, price: Number(price), createdBy: currentUser.uid, quantity: 1 })
+      .push({ product, price: Number(price), createdBy: currentUser.uid, quantity: 0 })
       .then(() => {
         dispatch({ type: PRODUCT_ADD })
+        Actions.pop({ key: 'list', type: 'reset' });
       })
   }
 }

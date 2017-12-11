@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import { ListView } from 'react-native'
-import { View, Text, Container, Content, SwipeRow, Icon, Button, Card } from 'native-base';
+import { ListView, View, Text, TouchableOpacity } from 'react-native'
+import { SwipeListView } from 'react-native-swipe-list-view'
+import { Icon } from 'react-native-elements'
 import { Actions } from 'react-native-router-flux'
 
 import style from './CartStyles'
+import styles from './PizzaStyle'
 
 class ListItem extends Component {
 
@@ -15,7 +17,7 @@ class ListItem extends Component {
       if (product.uid === p.uid) {
         productExists = true;
         productIndex = idx;
-        console.log(product.uid)
+        // console.log(product.uid)
       }
     })
 
@@ -33,35 +35,26 @@ class ListItem extends Component {
         enableEmptySections
         dataSource={this.props.productList}
         renderRow={rowData => (
-          <View style={{ borderBottomWidth: 0.2 }}>
-            <Content scrollEnabled={false}>
-              <SwipeRow
-                disableRightSwipe
-                rightOpenValue={-100}
-                body={
-                  <View style={style.CartItem}>
-                    <Text style={{ paddingLeft: 10, flex: 0.5 }}>
-                      {rowData.product}
-                    </Text>
+          <View style={styles.ItemBaseContainer}>
+            <View style={style.CartItem}>
+              <Text style={styles.PizzaName}>
+                {rowData.product}
+              </Text>
 
-                    <Text style={{ flex: 0.2 }}>
-                      {rowData.price}
-                    </Text>
-                  </View>
-                }
-                right={
-                  <View style={style.CartItem}>
-                    <Button success onPress={() => this.addRequested(rowData)}>
-                      <Icon active name="add" />
-                    </Button>
+              <Text style={{ flex: 0.2 }}>
+                {rowData.price}
+              </Text>
+            </View>
 
-                    <Button danger onPress={() => alert('Trash')}>
-                      <Icon active name="trash" />
-                    </Button>
-                  </View>
-                }
-              />
-            </Content>
+            <View style={styles.PizzaAddButtonContainer}>
+              <TouchableOpacity
+                style={styles.PizzaAddButton}
+                onPress={() => this.addRequested(rowData)}
+              >
+                <Icon name='add-shopping-cart' type='action' color='#66cccc' />
+              </TouchableOpacity>
+
+            </View>
           </View>
         )}
       />

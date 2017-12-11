@@ -19,7 +19,6 @@ const INITIAL_STATE = {
 }
 
 export default (state = INITIAL_STATE, action) => {
-  console.log(action)
   switch (action.type) {
     case TEXT_CHANGED:
       return { ...state, [action.payload.prop]: action.payload.text }

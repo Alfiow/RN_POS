@@ -20,10 +20,8 @@ module.exports = StyleSheet.create({
     flex: 2
   },
   PizzaName: {
-    flex: 2,
-    fontSize: 15,
-    paddingLeft: 10,
-    paddingTop: 10,
+    flex: 0.5,
+    padding: 10,
     justifyContent: 'center',
     alignItems: 'flex-start'
   },
@@ -53,9 +51,7 @@ module.exports = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   PizzaAddButton: {
-    margin: 5,
-    backgroundColor: 'red',
-    width: 60
+    marginRight: 10,
   },
   PizzaAddButtonText: {
     fontSize: 40,

@@ -40,10 +40,6 @@ const mapStateToProps = (state) => {
   const { product, price } = state.productForm
 
   return { product, price }
-  // return {
-  //   product: productForm.product,
-  //   price: productForm.price
-  // }
 }
 
 export default connect(mapStateToProps, { productUpdate, productAdd }) (ProductForm)

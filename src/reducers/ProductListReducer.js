@@ -17,7 +17,6 @@ export default (state = INITIAL_STATE, action) => {
     case PRODUCT_FETCH_SUCCESS:
       return {
         ...state,
-        products: action.payload,
         products : _.map(action.payload, (val, uid) => {
           return { ...val,
             uid

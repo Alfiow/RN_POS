@@ -31,7 +31,7 @@ class ProductList extends Component {
   }
   
   render() {
-    console.log(this.props.products)
+    // console.log(this.props.products)
     return (
       <ListItem
         productList={this.dataSource}

@@ -18,6 +18,7 @@ module.exports = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginLeft: 5,
+    marginRight: 10,
     flex: 4,
   },
   totalContainer: {
