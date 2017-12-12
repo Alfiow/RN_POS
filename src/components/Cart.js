@@ -15,6 +15,19 @@ const EmptyCart = () => (
 )
 
 export default class Cart extends Component {
+  constructor(props) {
+    super(props);
+    this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+    this.state = {
+      productsList: this.ds.cloneWithRows(this.props.products)
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      productsList: this.ds.cloneWithRows(nextProps.products)
+    });
+  }
 
   removeItem = (product) => {
     let index = this.props.products.indexOf(product);
@@ -39,7 +52,7 @@ export default class Cart extends Component {
             <View style={style.CartItem} key={rowID}>
               <Text style={{ flex: 0.1 }}>{product.quantity}x</Text>
               <Text style={{ padding: 10, flex: 0.5 }}>
-                {product.product.toString()}
+                {product.product}
               </Text>
               <Text style={{ flex: 0.2 }}>
                 Rp.{(product.quantity * product.price)}
@@ -59,39 +72,14 @@ export default class Cart extends Component {
       />
     );
   }
-  //{ this.displayProductChoices(product) }
-  // displayProductChoices(product) {
-  //   if (product.type === "burger") {
-  //     return (
-  //       <View style={{ marginLeft: 50, paddingBottom: 10 }}>
-  //         <Text>-{product.salad.toString()}</Text>
-  //         <Text>-{product.sauce.toString()}</Text>
-  //         <Text>-{product.cheese.toString()}</Text>
-  //       </View>
-  //     );
-  //   } else if (product.type === "kebab") {
-  //     return (
-  //       <View style={{ marginLeft: 50, paddingBottom: 10 }}>
-  //         <Text>-{product.salad.toString()}</Text>
-  //         <Text>-{product.sauce.toString()}</Text>
-  //         <Text>-{product.bread.toString()}</Text>
-  //       </View>
-  //     );
-  //   } else if (product.type === "pizza" && product.extra_toppings) {
-  //     return (
-  //       // TODO: A ListView of all extra toppings should be appended here
-  //       <ListView style={{ marginLeft: 90, paddingBottom: 10 }}>
-  //         <Text>-{product.salad.toString()}</Text>
-  //       </ListView>
-  //     );
-  //   } else {
-  //   }
-  // }
 
   render() {
-    // console.log(this.props.products.uid)
+    console.log(this.props.products.valueOf())
     return (
       <View style={style.CartContainer}>
+        <View>
+          
+        </View>
         <View style={{ flex: 3, padding: 10 }}>
           {this.props.products.length > 0 ? this.displayCart() : <EmptyCart />}
         </View>

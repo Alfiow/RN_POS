@@ -24,7 +24,6 @@ class Login extends Component {
     return (
       <Button
         buttonStyle={styles.buttonStyle}
-        icon={{ name: 'user', type: 'simple-line-icon' }}
         backgroundColor='transparent'
         borderRadius={20}
         title='Masuk'
@@ -40,7 +39,7 @@ class Login extends Component {
     return (
       <LinearGradient
         start={{ x: 0.0, y: 0.25 }} end={{ x: 1.0, y: 1.0 }}
-        colors={['#667db6', '#0082c8', '#667db6']}
+        colors={['#b4b4b4', '#7d7b7a', '#535251']}
         style={LinearGradientStyle}
       >
         

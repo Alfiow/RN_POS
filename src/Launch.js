@@ -3,6 +3,7 @@ import { View, Image, Text, StatusBar } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { Button } from 'react-native-elements'
 import { Actions } from 'react-native-router-flux'
+import { width } from './config/constants'
 
 class Launch extends Component {
   onButtonPress() {
@@ -19,7 +20,7 @@ class Launch extends Component {
     return (
       <LinearGradient
         start={{ x: 0.0, y: 0.25 }} end={{ x: 1.0, y: 1.0 }}
-        colors={['#667db6', '#0082c8', '#667db6']}
+        colors={['#485563', '#485563']}
         style={LinearGradientStyle}
       >
 
@@ -40,9 +41,7 @@ class Launch extends Component {
 
           <Button
             buttonStyle={styles.buttonStyle}
-            icon={{ name: 'user', type: 'simple-line-icon' }}
-            backgroundColor='transparent'
-            borderRadius={20}
+            backgroundColor='#4BC0C8'
             title='Masuk'
             fontFamily='Avenir'
             fontSize={16}
@@ -55,9 +54,7 @@ class Launch extends Component {
 
           <Button
             buttonStyle={buttonStyle}
-            icon={{ name: 'user', type: 'simple-line-icon' }}
-            backgroundColor='transparent'
-            borderRadius={20}
+            backgroundColor='#a73737'
             title='Daftar'
             color='white'
             fontFamily='Avenir'
@@ -86,8 +83,9 @@ const styles = {
     backgroundColor: 'transparent'
   },
   buttonStyle: {
-    width: 250,
-    height: 40,
+    margin: 20,
+    width: width,
+    height: 50,
     borderWidth: 1,
     borderColor: 'white',
     alignSelf: 'center',

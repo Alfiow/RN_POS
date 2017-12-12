@@ -15,6 +15,8 @@ import ProductForm from './components/ProductForm'
 import ProductList from './components/ProductList'
 import CartContainer from './components/CartContainer'
 
+import CustomerAdd from './components/CustomerAdd'
+
 import style from './components/CartStyles'
 
 const RouterComponent = () => {
@@ -24,12 +26,16 @@ const RouterComponent = () => {
         <Scene key='launch' component={Launch} hideNavBar />
         <Scene key='login' component={Login} hideNavBar />
         <Scene key='signup' component={SignUp} title='Data Toko Anda' />
-        <Scene key='addform' component={ProductAdd} title='Tambah produk' />
+
+        <Scene key='productadd' component={ProductAdd} title='Tambah produk' />
+
+        <Scene key='customeradd' component={CustomerAdd} title='tambah customer' />
 
         <Drawer
           hideNavBar
           key="drawer"
           contentComponent={DrawerContent}
+          drawerWidth={200}
           drawerImage={MenuIcon}
         >
             <Stack
@@ -42,7 +48,7 @@ const RouterComponent = () => {
                       <Icon name="shopping-cart" type="action" size={25} color="white" />
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => Actions.addform()}>
+                    <TouchableOpacity onPress={() => Actions.productadd()}>
                       <Icon name="input" type="action" size={25} color="white" />
                     </TouchableOpacity>
                   </View>
@@ -72,7 +78,7 @@ const RouterComponent = () => {
               renderRightButton={() => {
                 return (
                   <View style={style.CartItem}>
-                    <TouchableOpacity onPress={() => Actions.list()} style={{ padding: 10 }}>
+                    <TouchableOpacity onPress={() => Actions.customeradd()} style={{ padding: 10 }}>
                       <Icon name="account-circle" type="action" color="white" />
                     </TouchableOpacity>
                   </View>

@@ -32,25 +32,22 @@ class ListItem extends Component {
 
     return(
       <ListView
+        style={style.CartProductContainer}
         enableEmptySections
         dataSource={this.props.productList}
         renderRow={rowData => (
-          <View style={styles.ItemBaseContainer}>
+          <View style={{ borderBottomWidth: 0.5, borderBottomColor: "black" }}>
             <View style={style.CartItem}>
-              <Text style={styles.PizzaName}>
+
+              <Text style={{ flex: 1, padding: 15 }}>
                 {rowData.product}
               </Text>
 
               <Text style={{ flex: 0.2 }}>
                 {rowData.price}
               </Text>
-            </View>
-
-            <View style={styles.PizzaAddButtonContainer}>
-              <TouchableOpacity
-                style={styles.PizzaAddButton}
-                onPress={() => this.addRequested(rowData)}
-              >
+          
+              <TouchableOpacity style={{ flex: 0.2 }} onPress={() => this.addRequested(rowData)}>
                 <Icon name='add-shopping-cart' type='action' color='#66cccc' />
               </TouchableOpacity>
 

@@ -10,8 +10,9 @@ import Cart from './Cart'
 import { RemoveCart, RemoveSingleItemCart } from '../actions';
 
 class CartContainer extends Component {
+  
   render() {
-    console.log(this.props.products.uid)
+    
     return (
       <Cart
         products={this.props.products}

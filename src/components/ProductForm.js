@@ -8,6 +8,7 @@ import {
 } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { productUpdate, productAdd } from '../actions'
+import { width } from '../config/constants'
 
 class ProductForm extends Component {
 
@@ -23,16 +24,6 @@ class ProductForm extends Component {
         />
       </View>
     )
-  }
-}
-
-const styles = {
-  buttonStyle: {
-    width: 250,
-    height: 40,
-    borderWidth: 1,
-    borderColor: 'white',
-    alignSelf: 'center',
   }
 }
 

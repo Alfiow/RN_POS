@@ -7,20 +7,21 @@ import {
   Button
 } from 'react-native-elements'
 import { connect } from 'react-redux'
-import { productUpdate, productAdd } from '../actions'
-import ProductForm from './ProductForm'
+import { customerAdd } from '../actions'
+import CustomerForm from './CustomerForm'
 import { width } from '../config/constants'
 
-class ProductAdd extends Component {
+class CustomerAdd extends Component {
   onButtonPress() {
-    const { product, price } = this.props;
+    const { nama, email, phone } = this.props;
 
-    this.props.productAdd({ product, price, })
+    this.props.customerAdd({ nama, email, phone })
   }
+
   render() {
     return (
       <View>
-        <ProductForm {...this.props} />
+        <CustomerForm {...this.props} />
         <Button
           buttonStyle={styles.buttonStyle}
           backgroundColor='#4BC0C8'
@@ -47,13 +48,9 @@ const styles = {
 }
 
 const mapStateToProps = (state) => {
-  const { product, price } = state.productForm
+  const { nama, email, phone } = state.customerForm
 
-  return { product, price }
-  // return {
-  //   product: productForm.product,
-  //   price: productForm.price
-  // }
+  return { nama, email, phone }
 }
 
-export default connect(mapStateToProps, { productUpdate, productAdd })(ProductAdd)
+export default connect(mapStateToProps, { customerAdd })(CustomerAdd)

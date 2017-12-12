@@ -4,6 +4,8 @@ import thunk from 'redux-thunk'
 import AuthReducer from './AuthReducer'
 import ProductFormReducer from './ProductFormReducer'
 import ProductListReducer from './ProductListReducer'
+import CustomerFormReducer from './CustomerFormReducer'
+
 import { devSettings } from '../constants'
 
 const middleWares = []
@@ -15,7 +17,8 @@ if (devSettings.logRedux) {
 const reducers = combineReducers({
   auth: AuthReducer,
   productForm: ProductFormReducer,
-  products: ProductListReducer
+  products: ProductListReducer,
+  customerForm: CustomerFormReducer 
 })
 const store = createStore(reducers, undefined, applyMiddleware(...middleWares))
 
