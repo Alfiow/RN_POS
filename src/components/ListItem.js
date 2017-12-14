@@ -5,6 +5,7 @@ import { Icon } from 'react-native-elements'
 import { Actions } from 'react-native-router-flux'
 
 import { Footer } from './common'
+import { width } from '../config/constants'
 import style from './CartStyles'
 
 const EmptyCart = () => (
@@ -54,18 +55,20 @@ class ListItem extends Component {
         enableEmptySections
         dataSource={this.props.productList}
         renderRow={rowData => (
-          <View style={{ borderBottomWidth: 0.5, borderBottomColor: "black" }}>
+          <View style={{ flex: 1, width: width, borderBottomWidth: 0.5, borderBottomColor: "black" }}>
             <View style={style.CartItem}>
-
-              <Text style={{ flex: 0.8, padding: 10 }}>
-                {rowData.product}
-              </Text>
+            
+              <TouchableOpacity style={{ flex: 0.8, padding: 10 }} onPress={() => Actions.productedit({ rowProduct: rowData })}>
+                <Text style={{ flex: 0.8, padding: 10 }}>
+                  {rowData.product}
+                </Text>
+              </TouchableOpacity>
 
               <Text style={{ flex: 0.4 }}>
                 {rowData.quantity}
               </Text>
 
-              <Text style={{ flex: 0.2 }}>
+              <Text style={{ flex: 0.3 }}>
                 {rowData.price}
               </Text>
 
@@ -73,7 +76,7 @@ class ListItem extends Component {
                 <Icon name='add-circle' type='action' color='#66cccc' />
               </TouchableOpacity>
 
-              <TouchableOpacity style={{ flex: 0.2 }} onPress={() => this.removeItem(rowData)}>
+              <TouchableOpacity style={{ flex: 0.3 }} onPress={() => this.removeItem(rowData)}>
                 <Icon name="remove-circle" type='action' color="#66cccc"  />
               </TouchableOpacity>
 
@@ -85,13 +88,14 @@ class ListItem extends Component {
   }
 
   render() {
-    //le.log(this.props.incrementExistingItemQuantity)
+    const enabled = this.props.collectionEnabled
     return (
       <View style={style.CartContainer}>
         <View style={{ flex: 3, padding: 10 }}>
           {this.props.products.length > 0 ? this.displayList() : <EmptyCart />}
         </View>
 
+        { enabled ?
         <View style={styles.footerStyle}>
           <View style={styles.viewStyle}>
             <Text style={styles.textStyle}>{this.props.totalItemsInCart} Barang</Text>
@@ -109,6 +113,8 @@ class ListItem extends Component {
             </View>
           </TouchableOpacity>
         </View>
+        : null
+        }
       </View>
     )
   }

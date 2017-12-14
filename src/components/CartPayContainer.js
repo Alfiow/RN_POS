@@ -21,7 +21,6 @@ class CartPayContainer extends Component {
         deliveryEnabled={this.props.deliveryEnabled}
         collectionEnabled={this.props.collectionEnabled}
         totalPrice={this.props.totalPrice}
-        totalItemsInCart={this.props.totalItems}
         transactionAndOrderTable={this.props.transactionOrder}
       />
     );
@@ -32,7 +31,6 @@ const mapStateToProps = state => ({
 
   products: state.products.products,
   totalPrice: totalPriceSelector(state),
-  totalItems: totalItemCountSelector(state),
   deliveryEnabled: deliverySelector(state),
   collectionEnabled: collectionSelector(state),
 });

@@ -15,15 +15,29 @@ class ProductForm extends Component {
   render() {
     return (
       <View>
-        <FormLabel>Nama Produk</FormLabel>
-        <FormInput onChangeText={value => this.props.productUpdate({ prop: 'product', value })} />
-        <FormLabel>Harga</FormLabel>
-        <FormInput 
+        <FormLabel labelStyle={styles.labelStyle}>Nama Produk</FormLabel>
+        <FormInput
+          placeholder='masukkan produk'
+          placeholderTextColor={'grey'}
+          value={this.props.product} 
+          onChangeText={value => this.props.productUpdate({ prop: 'product', value })} 
+        />
+        <FormLabel labelStyle={styles.labelStyle}>Harga</FormLabel>
+        <FormInput
+          placeholder='tentukan harga'
+          placeholderTextColor={'grey'}
+          value={this.props.price.toString()} 
           onChangeText={value => this.props.productUpdate({ prop: 'price', value })} 
           keyboardType='numeric'  
         />
       </View>
     )
+  }
+}
+
+const styles = {
+  labelStyle: {
+    fontSize: 18,
   }
 }
 

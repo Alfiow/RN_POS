@@ -19,6 +19,12 @@ export default class Payment extends Component {
       selected2: value
     });
   }
+
+  onButtonPress() {
+    let products = this.props.products
+    this.props.transactionAndOrderTable(products)
+  }
+
   render() {
     return (   
       <Container>
@@ -28,7 +34,6 @@ export default class Payment extends Component {
               <Text style={styles.pickerTextStyle}>Nama Customer</Text>
               <Input
                 style={{ flex: 0.5, }}
-                value={this.props.totalPrice}
                 placeholder='optional'
                 placeholderTextColor={'grey'} 
               />
@@ -73,6 +78,7 @@ export default class Payment extends Component {
             fontFamily="Avenir"
             fontWeight="bold"
             fontSize={16}
+            onPress={this.onButtonPress.bind(this)}
           />
 
         </Content>

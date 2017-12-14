@@ -87,10 +87,15 @@ export default class Cart extends Component {
             {enabled ? this.displayCart() : <EmptyCart />}
           </View>
 
+          <View style={styles.totalStyle}>
+            <Text style={styles.textStyle}>Total</Text>
+            <Text style={styles.textStyle}>Rp.{this.props.totalPrice}</Text>
+          </View>
+
           <View style={styles.footerStyle}>
-            <TouchableOpacity onPress={this.onButtonPress.bind(this)}>
+            <TouchableOpacity onPress={() => Actions.payment()}>
               <View style={styles.viewStyle}>
-                <Text style={styles.textStyle}>Lanjutkan</Text>
+                <Text style={styles.textStyle}>Pembayaran</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -115,6 +120,13 @@ const styles = {
     height: 50,
     padding: 10,
     position: 'relative'
+  },
+  totalStyle: {
+    flexDirection: 'row',
+    flex: 0.3,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    margin: 10
   },
   textStyle: {
     fontSize: 20,

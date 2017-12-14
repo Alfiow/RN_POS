@@ -4,6 +4,7 @@ import {
   PRODUCT_UPDATE,
   PRODUCT_ADD,
   PRODUCT_FETCH_SUCCESS,
+  PRODUCT_SAVE_SUCCESS,
   AddToCart,
   RemoveItemCart,
   UpdateExistingItemQuantity,
@@ -25,7 +26,7 @@ export const productAdd = ({ product, price }) => {
       .push({ product, price: Number(price), createdBy: currentUser.uid, quantity: 0 })
       .then(() => {
         dispatch({ type: PRODUCT_ADD })
-        Actions.pop({ key: 'list', type: 'reset' });
+        Actions.pop({ key: 'list', type: 'reset' })
       })
   }
 }
@@ -39,6 +40,17 @@ export const productFetch = () => {
       .on('value', snapshot => {
         dispatch({ type: PRODUCT_FETCH_SUCCESS, payload: snapshot.val() })
       })
+  }
+}
+
+export const productSave = ({ product, price, uid }) => {
+  return (dispatch) => {
+    firebase.database().ref(`/products/${uid}`)
+    .update({ product, price })
+    .then(() => {
+      dispatch({ type: PRODUCT_SAVE_SUCCESS })
+      Actions.drawer({ type: 'reset' })
+    })
   }
 }
 

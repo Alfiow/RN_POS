@@ -13,6 +13,7 @@ import MenuIcon from './images/drawer.png'
 import ProductAdd from './components/ProductAdd'
 import ProductForm from './components/ProductForm'
 import ProductList from './components/ProductList'
+import ProductEdit from './components/ProductEdit'
 
 import CartContainer from './components/CartContainer'
 import CartPayContainer from './components/CartPayContainer'
@@ -41,30 +42,36 @@ const RouterComponent = () => {
           drawerWidth={200}
           drawerImage={MenuIcon}
         >
-            <Stack
-              navigationBarStyle={{ backgroundColor: '#66cccc' }}
-              titleStyle={{ color: '#f7f7f7', alignSelf: 'flex-start' }}
-              renderRightButton={() => { 
-                return (
-                  <View style={style.CartItem}>
-                    <TouchableOpacity onPress={() => Actions.cart()} style={{ padding : 10 }}>
-                      <Icon name="search" type="action" size={25} color="white" />
-                    </TouchableOpacity>
+          <Stack
+            navigationBarStyle={{ backgroundColor: '#66cccc' }}
+            titleStyle={{ color: '#f7f7f7', alignSelf: 'flex-start' }}
+            renderRightButton={() => { 
+              return (
+                <View style={style.CartItem}>
+                  <TouchableOpacity onPress={() => Actions.drawer()} style={{ padding: 10 }}>
+                    <Icon name="refresh" type="navigation" size={25} color="white" />
+                  </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => Actions.productadd()}>
-                      <Icon name="input" type="action" size={25} color="white" />
-                    </TouchableOpacity>
-                  </View>
-                )}
-              }
-            >
-              <Scene 
-             
-                key='list' 
-                component={ProductList}
-                title='Produk'
-              />
-            </Stack>
+                  <TouchableOpacity onPress={() => Actions.cart()} style={{ padding : 10 }}>
+                    <Icon name="search" type="action" size={25} color="white" />
+                  </TouchableOpacity>
+
+                  <TouchableOpacity onPress={() => Actions.productadd()}>
+                    <Icon name="input" type="action" size={25} color="white" />
+                  </TouchableOpacity>
+                </View>
+              )}
+            }
+          >
+            <Scene 
+              key='list' 
+              component={ProductList}
+              title='Produk'
+            />
+          </Stack>
+        </Drawer>
+
+        <Scene key='nodrawer' hideNavBar renderBackButton={() => (null)}>
 
             <Stack
               navigationBarStyle={{ backgroundColor: '#66cccc' }}
@@ -101,10 +108,9 @@ const RouterComponent = () => {
               }
             >
               <Scene
-                drawer={false}
-                key='cartpay'
-                component={CartPayContainer}
-                title='Pembayaran'
+                key='payment'
+                component={PaymentContainer}
+                title='Konfirmasi Pembayaran'
               />
             </Stack>
 
@@ -115,21 +121,21 @@ const RouterComponent = () => {
                 return (
                   <View style={style.CartItem}>
                     <TouchableOpacity onPress={() => Actions.list()} style={{ padding: 10 }}>
-                      <Icon name="arrow-back" type="navigation" size={25} color="white" />
+                      <Icon name="arrow-back" type="navigation" color="white" />
                     </TouchableOpacity>
                   </View>
-                )}
+                )
+              }
               }
             >
               <Scene
-                drawer={false}
-                key='payment'
-                component={PaymentContainer}
-                title='Konfirmasi Pembayaran'
+                key='productedit'
+                component={ProductEdit}
+                title='Edit produk'
               />
             </Stack>
-            
-        </Drawer>
+
+          </Scene>
       </Stack>
     </Router>
   )
@@ -142,3 +148,10 @@ const styles = {
 };
 
 export default RouterComponent;
+
+// public componentWillMount(): void {
+//   this.props.navigation.setParams({
+//     onRight: () => { this.myOnRight(); },
+//     rightTitle: 'newTitle',
+//   })
+// }

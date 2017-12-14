@@ -46,6 +46,7 @@ class ProductList extends Component {
         incrementExistingItemQuantity={this.props.incrementExistingItemQuantity}
         removeCart={this.props.RemoveCart}
         removeSingleExistingItem={this.props.RemoveSingleItemCart}
+        collectionEnabled={this.props.collectionEnabled}
         totalItemsInCart={this.props.totalProducts}
         products={this.props.products}
       />
