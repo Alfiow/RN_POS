@@ -2,7 +2,8 @@ import firebase from 'firebase'
 import { Actions } from 'react-native-router-flux'
 import {
   CUSTOMER_UPDATE,
-  CUSTOMER_ADD
+  CUSTOMER_ADD,
+  CUSTOMER_FETCH_SUCCESS
 } from './types'
 
 export const customerUpdate = ({ prop, value }) => {
@@ -21,6 +22,17 @@ export const customerAdd = ({ nama, email, phone }) => {
       .then(() => {
         dispatch({ type: CUSTOMER_ADD })
         Actions.pop({ key: 'cart', type: 'reset' })
+      })
+  }
+}
+
+export const customerFetch = () => {
+  const { currentUser } = firebase.auth()
+
+  return (dispatch) => {
+    firebase.database().ref('customers')
+      .on('value', snapshot => {
+        dispatch({ type: CUSTOMER_FETCH_SUCCESS, payload: snapshot.val() })
       })
   }
 }

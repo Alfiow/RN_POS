@@ -29,5 +29,5 @@ export const deliverySelector = createSelector(
 
 export const collectionSelector = createSelector(
   totalItemCountSelector,
-  totalItems => totalItems >= 1
+  totalItemCountSelector => totalItemCountSelector >= 1
 );

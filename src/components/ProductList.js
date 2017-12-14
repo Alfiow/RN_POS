@@ -2,7 +2,14 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { ListView, FlatList } from 'react-native'
-import { productFetch, AddCart, UpdateExistingItemQuantityCart } from '../actions'
+import { 
+  productFetch, 
+  AddCart, 
+  UpdateExistingItemQuantityCart,
+  RemoveCart,
+  RemoveSingleItemCart 
+} from '../actions'
+
 import ListItem from './ListItem'
 import {
   totalItemCountSelector,
@@ -37,6 +44,9 @@ class ProductList extends Component {
         productList={this.dataSource}
         addToCart={this.props.addToCart}
         incrementExistingItemQuantity={this.props.incrementExistingItemQuantity}
+        removeCart={this.props.RemoveCart}
+        removeSingleExistingItem={this.props.RemoveSingleItemCart}
+        totalItemsInCart={this.props.totalProducts}
         products={this.props.products}
       />
     );
@@ -56,5 +66,7 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, { 
   productFetch,
   addToCart: AddCart,
-  incrementExistingItemQuantity: UpdateExistingItemQuantityCart  
+  incrementExistingItemQuantity: UpdateExistingItemQuantityCart,
+  RemoveCart,
+  RemoveSingleItemCart  
 })(ProductList);

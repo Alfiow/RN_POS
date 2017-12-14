@@ -1,11 +1,8 @@
-import React, { Component } from "react";
-import PropTypes from 'prop-types';
-import { Text, View, ListView, TouchableOpacity } from "react-native";
-import { Button, FormLabel, FormInput, Icon } from "react-native-elements";
-import { width } from "../config/constants";
-import { Actions } from 'react-native-router-flux'
+import React, { Component } from 'react'
+import { Text, View, ListView, TouchableOpacity } from "react-native"
+import { width } from "../config/constants"
 
-import style from "./CartStyles";
+import style from "./CartStyles"
 
 const EmptyCart = () => (
   <View style={style.emptyCart}>
@@ -13,31 +10,31 @@ const EmptyCart = () => (
   </View>
 )
 
-export default class Cart extends Component {
+export default class CartPay extends Component {
   constructor(props) {
-    super(props);
-    this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+    super(props)
+    this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
     this.state = {
       productsList: this.ds.cloneWithRows(this.props.products)
-    };
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       productsList: this.ds.cloneWithRows(nextProps.products)
-    });
+    })
   }
 
   removeItem = (product) => {
-    let index = this.props.products.indexOf(product);
+    let index = this.props.products.indexOf(product)
     if (product.quantity > 1) {
       this.props.removeSingleExistingItem(
         index,
         product,
         (product.quantity -= 1)
-      );
+      )
     } else {
-      this.props.removeCart(index, product);
+      this.props.removeCart(index, product)
     }
   }
 
@@ -56,20 +53,12 @@ export default class Cart extends Component {
               <Text style={{ flex: 0.2 }}>
                 Rp.{(product.quantity * product.price)}
               </Text>
-              <TouchableOpacity
-                style={{ flex: 0.2 }}
-                onPress={() => {
-                  this.removeItem(product);
-                }}
-              >
-                <Icon size={15} reverse color="#66cccc" name="close" />
-              </TouchableOpacity>
             </View>
 
           </View>
         )}
       />
-    );
+    )
   }
 
   onButtonPress() {
@@ -81,19 +70,25 @@ export default class Cart extends Component {
     const enabled = this.props.collectionEnabled
     return (
       <View style={style.CartContainer}>
-        { enabled ?
+        {enabled ?        
         <View style={style.CartContainer}>
           <View style={{ flex: 3, padding: 10 }}>
             {enabled ? this.displayCart() : <EmptyCart />}
           </View>
 
+          <View style={styles.totalStyle}>
+            <Text style={styles.textStyle}>Total</Text>
+            <Text style={styles.textStyle}>Rp.{this.props.totalPrice}</Text>
+          </View>
+
           <View style={styles.footerStyle}>
             <TouchableOpacity onPress={this.onButtonPress.bind(this)}>
               <View style={styles.viewStyle}>
-                <Text style={styles.textStyle}>Lanjutkan</Text>
+                <Text style={styles.textStyle}>Bayar</Text>
               </View>
             </TouchableOpacity>
           </View>
+          
         </View> 
         : <EmptyCart />
         }
@@ -104,7 +99,7 @@ export default class Cart extends Component {
 
 const styles = {
   footerStyle: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#66cccc',
@@ -115,6 +110,13 @@ const styles = {
     height: 50,
     padding: 10,
     position: 'relative'
+  },
+  totalStyle: {
+    flexDirection: 'row', 
+    flex: 0.3, 
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    margin: 10
   },
   textStyle: {
     fontSize: 20,

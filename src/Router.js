@@ -13,7 +13,10 @@ import MenuIcon from './images/drawer.png'
 import ProductAdd from './components/ProductAdd'
 import ProductForm from './components/ProductForm'
 import ProductList from './components/ProductList'
+
 import CartContainer from './components/CartContainer'
+import CartPayContainer from './components/CartPayContainer'
+import PaymentContainer from './components/PaymentContainer'
 
 import CustomerAdd from './components/CustomerAdd'
 
@@ -30,7 +33,7 @@ const RouterComponent = () => {
         <Scene key='productadd' component={ProductAdd} title='Tambah produk' />
 
         <Scene key='customeradd' component={CustomerAdd} title='tambah customer' />
-
+    
         <Drawer
           hideNavBar
           key="drawer"
@@ -45,7 +48,7 @@ const RouterComponent = () => {
                 return (
                   <View style={style.CartItem}>
                     <TouchableOpacity onPress={() => Actions.cart()} style={{ padding : 10 }}>
-                      <Icon name="shopping-cart" type="action" size={25} color="white" />
+                      <Icon name="search" type="action" size={25} color="white" />
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={() => Actions.productadd()}>
@@ -56,7 +59,7 @@ const RouterComponent = () => {
               }
             >
               <Scene 
-                initial
+             
                 key='list' 
                 component={ProductList}
                 title='Produk'
@@ -70,25 +73,59 @@ const RouterComponent = () => {
                 return (
                   <View style={style.CartItem}>
                     <TouchableOpacity onPress={() => Actions.list()} style={{ padding: 10 }}>
-                      <Icon name="remove-shopping-cart" type="action" color="white" />
-                    </TouchableOpacity>
-                  </View>
-                )}
-              }
-              renderRightButton={() => {
-                return (
-                  <View style={style.CartItem}>
-                    <TouchableOpacity onPress={() => Actions.customeradd()} style={{ padding: 10 }}>
-                      <Icon name="account-circle" type="action" color="white" />
+                      <Icon name="arrow-back" type="navigation" color="white" />
                     </TouchableOpacity>
                   </View>
                 )}
               }
             >
               <Scene
+                drawer={false}
                 key='cart'
                 component={CartContainer}
-                title='keranjang belanja'
+                title='Pesanan'
+              />
+            </Stack>
+
+            <Stack
+              navigationBarStyle={{ backgroundColor: '#66cccc' }}
+              titleStyle={{ color: '#f7f7f7', alignSelf: 'flex-start' }}
+              renderLeftButton={() => {
+                return (
+                  <View style={style.CartItem}>
+                    <TouchableOpacity onPress={() => Actions.cart()} style={{ padding: 10 }}>
+                      <Icon name="arrow-back" type="navigation" size={25} color="white" />
+                    </TouchableOpacity>
+                  </View>
+                )}
+              }
+            >
+              <Scene
+                drawer={false}
+                key='cartpay'
+                component={CartPayContainer}
+                title='Pembayaran'
+              />
+            </Stack>
+
+            <Stack
+              navigationBarStyle={{ backgroundColor: '#66cccc' }}
+              titleStyle={{ color: '#f7f7f7', alignSelf: 'flex-start' }}
+              renderLeftButton={() => {
+                return (
+                  <View style={style.CartItem}>
+                    <TouchableOpacity onPress={() => Actions.list()} style={{ padding: 10 }}>
+                      <Icon name="arrow-back" type="navigation" size={25} color="white" />
+                    </TouchableOpacity>
+                  </View>
+                )}
+              }
+            >
+              <Scene
+                drawer={false}
+                key='payment'
+                component={PaymentContainer}
+                title='Konfirmasi Pembayaran'
               />
             </Stack>
             

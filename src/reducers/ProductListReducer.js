@@ -4,7 +4,8 @@ import {
   AddToCart,
   RemoveItemCart,
   UpdateExistingItemQuantity,
-  RemoveSingleItemFromCart 
+  RemoveSingleItemFromCart,
+  TRANSACTION_ORDER_ADDED 
 } from '../actions/types'
 
 const INITIAL_STATE = {
@@ -60,6 +61,9 @@ export default (state = INITIAL_STATE, action) => {
           return product;
         })
       };
+
+    case TRANSACTION_ORDER_ADDED:
+      return INITIAL_STATE
         
     default:
       return state

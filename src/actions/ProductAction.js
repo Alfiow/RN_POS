@@ -7,7 +7,7 @@ import {
   AddToCart,
   RemoveItemCart,
   UpdateExistingItemQuantity,
-  RemoveSingleItemFromCart 
+  RemoveSingleItemFromCart
 } from './types'
 
 export const productUpdate = ({ prop, value }) => {
@@ -31,7 +31,7 @@ export const productAdd = ({ product, price }) => {
 }
 
 export const productFetch = () => {
-  const { currentUser } = firebase.auth();
+  const { currentUser } = firebase.auth()
 
   return (dispatch) => {
     //firebase.database().ref(`/products`).orderByChild("createdBy").equalTo(currentUser.uid)
@@ -75,3 +75,24 @@ export function RemoveSingleItemCart(index, product, quantity) {
   };
 }
 
+export const transactionOrder = (products) => {
+  const { currentUser } = firebase.auth()
+
+  return () => (
+    firebase.database().ref(`/transactions`)
+      .push({ createdBy: currentUser.uid })
+      .then((result => {
+        products.map(res => {
+          firebase.database().ref(`/orders/${result.key}`)
+            .push({
+              createdBy: res.createdBy,
+              price: res.price,
+              product: res.product,
+              quantity: res.quantity,
+              uid: res.uid,
+            })
+          Actions.payment()
+        })
+      }))
+  )
+}

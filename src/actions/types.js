@@ -20,3 +20,5 @@ export const RemoveSingleItemFromCart = 'REMOVE_SINGLE_ITEM_FROM_CART'
 
 export const CUSTOMER_UPDATE = 'customer_update'
 export const CUSTOMER_ADD = 'customer_add'
+export const CUSTOMER_FETCH_SUCCESS = 'customer_fetch_success'
+export const TRANSACTION_ORDER_ADDED = 'transaction_order_added'

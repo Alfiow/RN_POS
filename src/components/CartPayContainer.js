@@ -6,15 +6,15 @@ import {
   deliverySelector,
   collectionSelector
 } from '../config/selectors';
-import Cart from './Cart'
+import CartPay from './CartPay'
 import { RemoveCart, RemoveSingleItemCart, transactionOrder } from '../actions';
 
-class CartContainer extends Component {
-  
+class CartPayContainer extends Component {
+
   render() {
-    
+
     return (
-      <Cart
+      <CartPay
         products={this.props.products}
         removeCart={this.props.RemoveCart}
         removeSingleExistingItem={this.props.RemoveSingleItemCart}
@@ -29,7 +29,7 @@ class CartContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  
+
   products: state.products.products,
   totalPrice: totalPriceSelector(state),
   totalItems: totalItemCountSelector(state),
@@ -41,4 +41,4 @@ export default connect(mapStateToProps, {
   RemoveCart,
   RemoveSingleItemCart,
   transactionOrder
-})(CartContainer);
+})(CartPayContainer);

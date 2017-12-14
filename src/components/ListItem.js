@@ -4,8 +4,14 @@ import { SwipeListView } from 'react-native-swipe-list-view'
 import { Icon } from 'react-native-elements'
 import { Actions } from 'react-native-router-flux'
 
+import { Footer } from './common'
 import style from './CartStyles'
-import styles from './PizzaStyle'
+
+const EmptyCart = () => (
+  <View style={style.emptyCart}>
+    <Text>Input produk dahulu</Text>
+  </View>
+)
 
 class ListItem extends Component {
 
@@ -28,9 +34,21 @@ class ListItem extends Component {
     }
   }
 
-  render() {
+  removeItem = (product) => {
+    let index = this.props.products.indexOf(product);
+    if (product.quantity > -1) {
+      this.props.removeSingleExistingItem(
+        index,
+        product,
+        (product.quantity -= 1)
+      );
+    } else {
+      this.props.removeCart(index, product);
+    }
+  }
 
-    return(
+  displayList() {
+    return (
       <ListView
         style={style.CartProductContainer}
         enableEmptySections
@@ -39,24 +57,81 @@ class ListItem extends Component {
           <View style={{ borderBottomWidth: 0.5, borderBottomColor: "black" }}>
             <View style={style.CartItem}>
 
-              <Text style={{ flex: 1, padding: 15 }}>
+              <Text style={{ flex: 0.8, padding: 10 }}>
                 {rowData.product}
+              </Text>
+
+              <Text style={{ flex: 0.4 }}>
+                {rowData.quantity}
               </Text>
 
               <Text style={{ flex: 0.2 }}>
                 {rowData.price}
               </Text>
-          
+
               <TouchableOpacity style={{ flex: 0.2 }} onPress={() => this.addRequested(rowData)}>
-                <Icon name='add-shopping-cart' type='action' color='#66cccc' />
+                <Icon name='add-circle' type='action' color='#66cccc' />
+              </TouchableOpacity>
+
+              <TouchableOpacity style={{ flex: 0.2 }} onPress={() => this.removeItem(rowData)}>
+                <Icon name="remove-circle" type='action' color="#66cccc"  />
               </TouchableOpacity>
 
             </View>
           </View>
         )}
       />
-     
     )
+  }
+
+  render() {
+    //le.log(this.props.incrementExistingItemQuantity)
+    return (
+      <View style={style.CartContainer}>
+        <View style={{ flex: 3, padding: 10 }}>
+          {this.props.products.length > 0 ? this.displayList() : <EmptyCart />}
+        </View>
+
+        <View style={styles.footerStyle}>
+          <View style={styles.viewStyle}>
+            <Text style={styles.textStyle}>{this.props.totalItemsInCart} Barang</Text>
+          </View>
+
+          <View style={styles.viewStyle}>
+            <TouchableOpacity onPress={() => Actions.cart()}>
+              <Icon name="shopping-cart" type='action' color="black" />
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity onPress={() => Actions.payment() }>
+            <View style={styles.viewStyle}>
+              <Text style={styles.textStyle}>Bayar</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+    )
+  }
+}
+
+const styles = {
+  footerStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#66cccc',
+  },
+  viewStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 50,
+    padding: 10,
+    position: 'relative'
+  },
+  textStyle: {
+    fontSize: 20,
+    fontFamily: 'Avenir'
+
   }
 }
 
