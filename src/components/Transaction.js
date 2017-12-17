@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-import { ListView, View, Text, TouchableOpacity } from 'react-native'
+import { ListView, View, TouchableOpacity } from 'react-native'
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Icon } from 'react-native-elements'
 import { Actions } from 'react-native-router-flux'
+import { Container, Header, Content, List, ListItem, Text, Separator } from 'native-base';
 
-import { CardSection } from './common'
-import { width } from '../config/constants'
 import style from './CartStyles'
 
 const EmptyCart = () => (
@@ -38,30 +37,30 @@ class Transaction extends Component {
         style={style.CartProductContainer}
         dataSource={this.state.productsList}
         renderRow={(product, rowID) => (
-          <View style={{ borderBottomWidth: 0.2 }}>
-            <View style={{ borderBottomWidth: 0.2 }}>
+          <Content style={{ flex: 1 }}>
+            <Content style={{ flex: 1 }}>
               { product.quantity > 0 ?
-              <View style={style.CartItem} key={rowID}>
-                <Text style={{ padding: 5, flex: 0.4 }}>
+              <ListItem style={{ flex: 1 }}>
+                <Text style={{ flex: .3 }}>
                   {product.product}
                 </Text>
                 
-                <Text style={{ flex: 0.1 }}>
+                <Text style={{ flex: .1 }}>
                   {product.quantity}@
                 </Text>
 
-                <Text style={{ flex: 1 }}>
+                <Text style={{ flex: .3 }}>
                   Rp. {product.price}
                 </Text>
 
-                <Text style={{ fontSize: 18 }}>
+                <Text style={{ flex: .3 }}>
                   Rp. {(product.quantity * product.price)}
                 </Text>
-              </View>
+              </ListItem>
               : null
               }
-            </View>
-          </View>
+            </Content>
+          </Content>
         )}
       />
     );
@@ -74,57 +73,73 @@ class Transaction extends Component {
         enableEmptySections
         dataSource={this.props.transactionList}
         renderRow={rowData => (
-          <View style={{ flex: 1, width: width }}>
-            <CardSection>
-              <Text style={{ flex: 0.3, padding: 2 }}>
+          <Content style={{ flex: 1 }}>
+            <ListItem style={{ flex: 1 }}>
+              <Text style={{ flex: .7 }}>
                 Kode Transaksi
               </Text>
 
-              <Text style={{ flex: 1, padding: 2 }}>
+              <Text style={{ flex: .3 }}>
                 {rowData.uid.substr(-6)}
               </Text>
-            </CardSection>
+            </ListItem>
 
-            <CardSection>
-              <Text style={{ flex: 0.3, padding: 2 }}>
+            <ListItem>
+              <Text style={{ flex: .7 }}>
                 Date
               </Text>
 
-              <Text style={{ flex: 1, padding: 2 }}>
+              <Text style={{ flex: .3 }}>
                 {moment(rowData.createdAt).format('YYYY-MM-DD  HH:mm:ss')}
               </Text>
-            </CardSection>
+            </ListItem>
 
-            <CardSection>
-              <Text style={{ flex: 0.3, padding: 2 }}>
+            <ListItem>
+              <Text style={{ flex: .7 }}>
                 Nama
               </Text>
 
-              <Text style={{ flex: 1, padding: 2 }}>
+              <Text style={{ flex: .3 }}>
                 {rowData.name}
               </Text>
-            </CardSection>
+            </ListItem>
             
-            <View style={style.cartSummaryContainer}>
-              <View style={style.accumulatorContainer}>
-                <Text style={style.totalItems}>
-                  Total Items {this.props.totalItemsInCart}
-                </Text>
-                
-                <Text style={style.totalPrice}>
-                  Total Rp. {rowData.total}
-                </Text>
+            <ListItem style={{ flex: 1 }}>
+              <Text style={{ flex: .7 }}>
+                Total Items
+              </Text>
+              <Text style={{ flex: .3 }}>
+                {this.props.totalItemsInCart}
+              </Text>
+            </ListItem>
 
-                <Text style={style.totalPrice}>
-                  Jumlah Bayar Rp.{rowData.bayar} 
-                </Text>
+            <ListItem style={{ flex: 1 }}>
+              <Text style={{ flex: .7 }}>
+                Total
+              </Text>
+              <Text style={{ flex: .3 }}>
+                {rowData.total}
+              </Text>
+            </ListItem>
+              
+            <ListItem style={{ flex: 1 }}>
+              <Text style={{ flex: .7 }}>
+                Jumlah Bayar
+              </Text>
+              <Text style={{ flex: .3 }}>
+                {rowData.bayar}
+              </Text>
+            </ListItem>
 
-                <Text style={style.totalPrice}>
-                  Jumlah Kembalian Rp. {(rowData.bayar - rowData.total)}
-                </Text>
-              </View>
-            </View>
-          </View>
+            <ListItem style={{ flex: 1 }}>
+              <Text style={{ flex: .7 }}>
+                Jumlah Kembalian
+              </Text>
+              <Text style={{ flex: .3 }}>
+                {(rowData.bayar - rowData.total)}
+              </Text>
+            </ListItem>
+          </Content>
         )}
       />
     )

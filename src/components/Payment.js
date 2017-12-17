@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { View, Text, Picker } from "react-native";
-import { Container, Content, Input } from "native-base";
+import { View, Picker } from "react-native";
 import { Button } from 'react-native-elements'
 import { width } from '../config/constants'
-const Item = Picker.Item;
+import { Container, Header, Content, List, ListItem, Text, Separator, Input } from 'native-base';
 
 import style from "./CartStyles";
 
@@ -24,55 +23,47 @@ export default class Payment extends Component {
     return (   
       <Container>
         <Content>
-          <View style={style.CartProductContainer}>
-            <View style={style.CartItem}>
-              <Text style={styles.labelStyle}>Total bayar</Text>
-              <Text style={{ flex: 0.4, fontSize: 18 }}>{this.props.totalPrice}</Text>
-            </View>
-          </View>
+          <ListItem>
+            <Text style={{ flex: .7 }}>Total bayar</Text>
+            <Text style={{ flex: .3, fontSize: 18 }}>{this.props.totalPrice}</Text>
+          </ListItem>
 
-          <View style={style.CartProductContainer}>
-            <View style={style.CartItem}>
-              <Text style={styles.labelStyle}>Nama Customer</Text>
-              <Input
-                style={{ flex: 0.5, }}
-                placeholder='optional'
-                placeholderTextColor={'grey'}
-                onChangeText={value => this.props.paymentUpdate({ prop: 'name', value })} 
-              />
-            </View>
-          </View>
+          <ListItem>
+            <Text style={{ flex: .7 }}>Nama Customer</Text>
+            <Input
+              style={{ flex: .3 }}
+              placeholder='optional'
+              placeholderTextColor={'grey'}
+              onChangeText={value => this.props.paymentUpdate({ prop: 'name', value })} 
+            />
+          </ListItem>
 
-          <View style={style.CartProductContainer}>
-            <View style={style.CartItem}>
-              <Text style={styles.labelStyle}>Bayar dengan</Text>
-              <Picker
-                style={styles.picker}
-                textStyle={{ fontSize: 12, color: 'yellow' }}
-                mode="dropdown"
-                placeholder="Select One"
-                selectedValue={this.props.payment.payment}
-                onValueChange={value => this.props.paymentUpdate({ prop: 'payment', value })}
-              >
-                <Item label="Cash" value="Cash" />
-                <Item label={this.props.totalPrice} value="Credit" />
-              </Picker>
-            </View>
-          </View>
+          <ListItem>
+            <Text style={{ flex: .7 }}>Bayar dengan</Text>
+            <Picker
+              style = {{ flex: .3 }}
+              textStyle={{ fontSize: 12, color: 'yellow' }}
+              mode="dropdown"
+              placeholder="Select One"
+              selectedValue={this.props.payment.payment}
+              onValueChange={value => this.props.paymentUpdate({ prop: 'payment', value })}
+            >
+              <Picker.Item label="Cash" value="Cash" />
+              <Picker.Item label={this.props.totalPrice} value="Credit" />
+            </Picker>
+          </ListItem>
 
-          <View style={style.CartProductContainer}>
-            <View style={style.CartItem}> 
-              <Text style={styles.labelStyle}>Jumlah</Text>
-              <Input
-                placeholderTextColor={'grey'} 
-                style={{ flex: 0.4 }}
-                //value={payment}
-                placeholder={'00000'}
-                keyboardType='numeric'
-                onChangeText={value => this.props.paymentUpdate({ prop: 'bayar', value })} 
-              />
-            </View>
-          </View>
+          <ListItem> 
+            <Text style={{ flex: .7 }}>Jumlah</Text>
+            <Input
+              placeholderTextColor={'grey'} 
+              style={{ flex: .3 }}
+              //value={payment}
+              placeholder={'00000'}
+              keyboardType='numeric'
+              onChangeText={value => this.props.paymentUpdate({ prop: 'bayar', value })} 
+            />
+          </ListItem>
 
           <Button
             buttonStyle={{ marginTop: 20, width: width, height: 40, borderWidth: 1, borderColor: 'white', alignSelf: 'center' }}
@@ -91,16 +82,3 @@ export default class Payment extends Component {
     );
   }
 }
-
-const styles = {
-  labelStyle: {
-    fontSize: 18,
-    padding: 15,
-    flex: .6
-  },
-  picker: {
-    color: '#66cccc',
-    width: 110,
-    height: 40,
-  },
-};
