@@ -1,35 +1,57 @@
-import React from 'react';
+import _ from 'lodash'
 import firebase from 'firebase';
-import { Text, View, ViewPropTypes } from 'react-native';
-import Button from 'react-native-button';
-import { Actions } from 'react-native-router-flux';
-import { logoutUser } from './actions'
+import React, { Component } from 'react'
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  ListView
+} from 'react-native'
+import { Actions } from 'react-native-router-flux'
+import { Icon } from 'react-native-elements'
+import { userFetch, logoutUser } from './actions' 
+import { connect } from 'react-redux'
+import DrawerItemComponent from './DrawerItemComponent'
 
-class DrawerContent extends React.Component {
+
+class DrawerMenu extends Component {
+
+  componentWillMount() {
+    this.props.userFetch()
+    this.createDataSource(this.props)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.createDataSource(nextProps);
+  }
+
+  createDataSource({ users }) {
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+
+    this.dataSource = ds.cloneWithRows(users)
+  }
+
   render() {
+    //console.log(this.props.users)
     return (
-      <View style={styles.container}>
-        <Button onPress={() => logoutUser()}>
-          Log Out
-        </Button>
-
-        <Button onPress={() => Actions.pop()}>
-          Back
-        </Button>
-      </View >
-    );
+      <DrawerItemComponent
+        users={this.dataSource}
+        logoutUser={logoutUser}
+      />
+    )
   }
 }
 
-const styles = {
-  container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    backgroundColor: 'transparent',
-    borderWidth: 2,
-    borderColor: '#3b5998',
-  },
-};
+const mapStateToProps = state => {
+  const users = _.map(state.auth.users, (val, uid) => {
+    return { ...val, uid };
+  })
+  return {
+    users: users
+    //users: state.auth.users
+  }
+}
 
-export default DrawerContent;
+export default connect(mapStateToProps, { userFetch })(DrawerMenu)

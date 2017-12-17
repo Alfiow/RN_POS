@@ -10,7 +10,7 @@ import style from './CartStyles'
 
 const EmptyCart = () => (
   <View style={style.emptyCart}>
-    <Text>Input produk dahulu</Text>
+    <Text>{`Refresh atau Input produk`}</Text>
   </View>
 )
 
@@ -37,7 +37,7 @@ class ListItem extends Component {
 
   removeItem = (product) => {
     let index = this.props.products.indexOf(product);
-    if (product.quantity > -1) {
+    if (product.quantity > 0) {
       this.props.removeSingleExistingItem(
         index,
         product,

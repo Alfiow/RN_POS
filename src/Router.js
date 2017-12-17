@@ -16,10 +16,9 @@ import ProductList from './components/ProductList'
 import ProductEdit from './components/ProductEdit'
 
 import CartContainer from './components/CartContainer'
-import CartPayContainer from './components/CartPayContainer'
 import PaymentContainer from './components/PaymentContainer'
-
-import CustomerAdd from './components/CustomerAdd'
+import TransactionContainer from './components/TransactionContainer'
+import ReportContainer from './components/ReportContainer'
 
 import style from './components/CartStyles'
 
@@ -32,14 +31,12 @@ const RouterComponent = () => {
         <Scene key='signup' component={SignUp} title='Data Toko Anda' />
 
         <Scene key='productadd' component={ProductAdd} title='Tambah produk' />
-
-        <Scene key='customeradd' component={CustomerAdd} title='tambah customer' />
     
         <Drawer
           hideNavBar
           key="drawer"
           contentComponent={DrawerContent}
-          drawerWidth={200}
+          //drawerWidth={240}
           drawerImage={MenuIcon}
         >
           <Stack
@@ -48,7 +45,7 @@ const RouterComponent = () => {
             renderRightButton={() => { 
               return (
                 <View style={style.CartItem}>
-                  <TouchableOpacity onPress={() => Actions.drawer()} style={{ padding: 10 }}>
+                  <TouchableOpacity onPress={() => Actions.drawer() || Actions.list()} style={{ padding: 10 }}>
                     <Icon name="refresh" type="navigation" size={25} color="white" />
                   </TouchableOpacity>
 
@@ -67,6 +64,26 @@ const RouterComponent = () => {
               key='list' 
               component={ProductList}
               title='Produk'
+            />
+          </Stack>
+
+          <Stack
+            navigationBarStyle={{ backgroundColor: '#66cccc' }}
+            titleStyle={{ color: '#f7f7f7', alignSelf: 'flex-start' }}
+            renderRightButton={() => {
+              return (
+                <View style={style.CartItem}>
+                  <TouchableOpacity onPress={() => Actions.drawer() || Actions.list()} style={{ padding: 10 }}>
+                    <Icon name="refresh" type="navigation" size={25} color="white" />
+                  </TouchableOpacity>
+                </View>
+              )}
+            }
+          >
+            <Scene
+              key='report'
+              component={ReportContainer}
+              title='Riwayat Transaksi'
             />
           </Stack>
         </Drawer>
@@ -111,6 +128,26 @@ const RouterComponent = () => {
                 key='payment'
                 component={PaymentContainer}
                 title='Konfirmasi Pembayaran'
+              />
+            </Stack>
+
+            <Stack
+              navigationBarStyle={{ backgroundColor: '#66cccc' }}
+              titleStyle={{ color: '#f7f7f7', alignSelf: 'flex-start' }}
+              renderLeftButton={() => {
+                return (
+                  <View style={style.CartItem}>
+                    <TouchableOpacity onPress={() => Actions.cart()} style={{ padding: 10 }}>
+                      <Icon name="arrow-back" type="navigation" size={25} color="white" />
+                    </TouchableOpacity>
+                  </View>
+                )}
+              }
+            >
+              <Scene
+                key='transactions'
+                component={TransactionContainer}
+                title='Struk Pembayaran'
               />
             </Stack>
 

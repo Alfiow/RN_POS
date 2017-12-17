@@ -30,7 +30,7 @@ module.exports = StyleSheet.create({
     alignItems: 'center',
   },
   cartSummaryContainer: {
-    flex: 1.5,
+    flex: .50,
     alignItems: "stretch",
     justifyContent: "center",
     flexDirection: "column",
@@ -55,9 +55,4 @@ module.exports = StyleSheet.create({
     marginRight: 15,
     padding: 5
   },
-  cartSummaryButtonContainer: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "stretch"
-  }
 });

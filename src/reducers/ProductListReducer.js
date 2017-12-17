@@ -46,7 +46,7 @@ export default (state = INITIAL_STATE, action) => {
               quantity: action.quantity
             });
           }
-          return product;
+          return product
         })
       };
 

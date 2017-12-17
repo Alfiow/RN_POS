@@ -48,24 +48,28 @@ export default class Cart extends Component {
         dataSource={this.state.productsList}
         renderRow={(product, rowID) => (
           <View style={{ borderBottomWidth: 0.2 }}>
-            <View style={style.CartItem} key={rowID}>
-              <Text style={{ padding: 10, flex: 0.5 }}>
-                {product.product.toString()}
-              </Text>
-              <Text style={{ flex: 0.1 }}>{product.quantity}</Text>
-              <Text style={{ flex: 0.2 }}>
-                Rp.{(product.quantity * product.price)}
-              </Text>
-              <TouchableOpacity
-                style={{ flex: 0.2 }}
-                onPress={() => {
-                  this.removeItem(product);
-                }}
-              >
-                <Icon size={15} reverse color="#66cccc" name="close" />
-              </TouchableOpacity>
+            <View style={{ borderBottomWidth: 0.2 }}>
+              { product.quantity > 0 ?
+              <View style={style.CartItem} key={rowID}>
+                <Text style={{ padding: 10, flex: 0.5 }}>
+                  {product.product.toString()}
+                </Text>
+                <Text style={{ flex: 0.1 }}>{product.quantity}</Text>
+                <Text style={{ flex: 0.2 }}>
+                  Rp.{(product.quantity * product.price)}
+                </Text>
+                <TouchableOpacity
+                  style={{ flex: 0.2 }}
+                  onPress={() => {
+                    this.removeItem(product);
+                  }}
+                >
+                  <Icon size={15} reverse color="#66cccc" name="close" />
+                </TouchableOpacity>
+              </View>
+              : null
+              }
             </View>
-
           </View>
         )}
       />

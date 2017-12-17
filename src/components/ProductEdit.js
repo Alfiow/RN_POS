@@ -8,22 +8,35 @@ import {
   Button
 } from 'react-native-elements'
 import { connect } from 'react-redux'
-import { productUpdate, productSave } from '../actions'
+import { productUpdate, productSave, productDelete } from '../actions'
 import ProductForm from './ProductForm'
+import { Confirm } from './common'
 import { width } from '../config/constants'
 
 class ProductEdit extends Component {
+  state = { showModal: false };
+
   componentWillMount() {
     _.each(this.props.rowProduct, (value, prop) => {
       this.props.productUpdate({ prop, value })
     })
-    console.log(this.props.rowProduct)
+    //console.log(this.props.rowProduct)
   }
 
   onButtonPress() {
     const { product, price } = this.props;
 
     this.props.productSave({ product, price, uid: this.props.rowProduct.uid })
+  }
+
+  onAccept() {
+    const { uid } = this.props.rowProduct;
+
+    this.props.productDelete({ uid });
+  }
+
+  onDecline() {
+    this.setState({ showModal: false })
   }
   render() {
     return (
@@ -37,6 +50,22 @@ class ProductEdit extends Component {
           fontSize={16}
           onPress={this.onButtonPress.bind(this)}
         />
+        <Button
+          buttonStyle={styles.buttonStyle}
+          backgroundColor='#4BC0C8'
+          title='Hapus'
+          fontFamily='Avenir'
+          fontSize={16}
+          onPress={() => this.setState({ showModal: !this.state.showModal })}
+        />
+
+        <Confirm
+          visible={this.state.showModal}
+          onAccept={this.onAccept.bind(this)}
+          onDecline={this.onDecline.bind(this)}
+        >
+          Are you sure you want to delete this ?
+        </Confirm>
       </View>
     )
   }
@@ -64,4 +93,4 @@ const mapStateToProps = (state) => {
   // }
 }
 
-export default connect(mapStateToProps, { productUpdate, productSave })(ProductEdit)
+export default connect(mapStateToProps, { productUpdate, productSave, productDelete })(ProductEdit)

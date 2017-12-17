@@ -5,6 +5,8 @@ import AuthReducer from './AuthReducer'
 import ProductFormReducer from './ProductFormReducer'
 import ProductListReducer from './ProductListReducer'
 import CustomerFormReducer from './CustomerFormReducer'
+import PaymentReducer from './PaymentReducer'
+import TransactionReducer from './TransactionReducer'
 
 import { devSettings } from '../constants'
 
@@ -18,7 +20,9 @@ const reducers = combineReducers({
   auth: AuthReducer,
   productForm: ProductFormReducer,
   products: ProductListReducer,
-  customerForm: CustomerFormReducer 
+  customerForm: CustomerFormReducer,
+  payment: PaymentReducer,
+  transactions: TransactionReducer
 })
 const store = createStore(reducers, undefined, applyMiddleware(...middleWares))
 

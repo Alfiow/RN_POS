@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Image, Text, StatusBar } from 'react-native'
+import { View, Image, Text, StatusBar, TouchableHighlight } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { Button, Icon } from 'react-native-elements'
 import { connect } from 'react-redux'

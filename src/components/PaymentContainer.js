@@ -6,7 +6,7 @@ import {
   collectionSelector
 } from '../config/selectors';
 import Payment from './Payment'
-import { transactionOrder } from '../actions';
+import { transactionOrder, paymentUpdate } from '../actions';
 
 class PaymentContainer extends Component {
 
@@ -19,12 +19,15 @@ class PaymentContainer extends Component {
         collectionEnabled={this.props.collectionEnabled}
         totalPrice={this.props.totalPrice.toString()}
         transactionAndOrderTable={this.props.transactionOrder}
+        paymentUpdate={this.props.paymentUpdate}
+        payment={this.props.payment}        
       />
     );
   }
 }
 
 const mapStateToProps = state => ({
+  payment: state.payment,
   products: state.products.products,
   totalPrice: totalPriceSelector(state),
   deliveryEnabled: deliverySelector(state),
@@ -33,4 +36,5 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   transactionOrder,
+  paymentUpdate
 })(PaymentContainer)

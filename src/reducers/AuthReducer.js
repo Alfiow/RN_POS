@@ -7,6 +7,7 @@ import {
   SIGNUP_USER,
   SIGNUP_USER_SUCCESS,
   SIGNUP_USER_FAIL,
+  USER_FETCH_SUCCESS
 } from '../actions/types'
 
 const INITIAL_STATE = {
@@ -16,9 +17,11 @@ const INITIAL_STATE = {
   name: '',
   error: '',
   loading: false,
+  users: []
 }
 
 export default (state = INITIAL_STATE, action) => {
+  console.log(action)
   switch (action.type) {
     case TEXT_CHANGED:
       return { ...state, [action.payload.prop]: action.payload.text }
@@ -36,7 +39,9 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, ...INITIAL_STATE, user: action.payload }
     case SIGNUP_USER_FAIL:
       return { ...state, error: action.payload, password: '', user: null, loading: false }     
+    case USER_FETCH_SUCCESS:
+      return { users: action.payload }
     default:
-    return state
+      return state
   }
 }

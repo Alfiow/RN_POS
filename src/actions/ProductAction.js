@@ -8,7 +8,10 @@ import {
   AddToCart,
   RemoveItemCart,
   UpdateExistingItemQuantity,
-  RemoveSingleItemFromCart
+  RemoveSingleItemFromCart,
+  PAYMENT_UPDATE,
+  TRANSACTION_FETCH_SUCCESS,
+  REPORT_FETCH_SUCCESS
 } from './types'
 
 export const productUpdate = ({ prop, value }) => {
@@ -54,6 +57,18 @@ export const productSave = ({ product, price, uid }) => {
   }
 }
 
+export const productDelete = ({ uid }) => {
+  const { currentUser } = firebase.auth();
+
+  return () => {
+    firebase.database().ref(`/products/${uid}`)
+      .remove()
+      .then(() => {
+        Actions.drawer({ type: 'reset' })
+      });
+  };
+};
+
 export function AddCart(product) {
   return {
     type: AddToCart,
@@ -87,24 +102,59 @@ export function RemoveSingleItemCart(index, product, quantity) {
   };
 }
 
-export const transactionOrder = (products) => {
+export const paymentUpdate = ({ prop, value }) => {
+  return {
+    type: PAYMENT_UPDATE,
+    payload: { prop,value }
+  }
+}
+
+export const transactionOrder = ({ products, name, payment, bayar, total }) => {
   const { currentUser } = firebase.auth()
 
-  return () => (
+  return (dispatch) => (
     firebase.database().ref(`/transactions`)
-      .push({ createdBy: currentUser.uid })
+      .push({ 
+        createdBy: currentUser.uid, 
+        createdAt: firebase.database.ServerValue.TIMESTAMP,
+        name,
+        payment,
+        bayar: Number(bayar),
+        total: Number(total),
+      })
       .then((result => {
+        const uid = result.key.toString()
+        //console.log(uid)
         products.map(res => {
-          firebase.database().ref(`/orders/${result.key}`)
-            .push({
+          res.quantity > 0 ?
+          firebase.database().ref(`/orders/${result.key}/${res.uid}`)
+            .set({
               createdBy: res.createdBy,
               price: res.price,
               product: res.product,
               quantity: res.quantity,
-              uid: res.uid,
+              transactionID: result.key
+            }) : null
+
+          firebase.database().ref(`/transactions`).orderByChild("name").equalTo(name)
+            .on('value', snapshot => {
+              dispatch({ type: TRANSACTION_FETCH_SUCCESS, payload: snapshot.val() })
             })
-          Actions.payment()
-        })
+          // firebase.database().ref(`/orders`)
+          //   .on('child_added', snapshot => {
+          //     dispatch({ type: ORDER_FETCH_SUCCESS, payload: snapshot.val() })
+          //   })
+          Actions.transactions()
+          })
       }))
   )
+}
+
+export const reportFetch = () => {
+  return (dispatch) => {
+    firebase.database().ref(`/transactions`)
+      .on('value', snapshot => {
+        dispatch({ type: REPORT_FETCH_SUCCESS, payload: snapshot.val() })
+      })
+  }
 }

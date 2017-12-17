@@ -6,6 +6,7 @@ import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
   NAME_CHANGED,
+  USER_FETCH_SUCCESS,
   SIGNUP_USER,
   SIGNUP_USER_SUCCESS,
   SIGNUP_USER_FAIL,
@@ -73,8 +74,8 @@ const signUpUserSuccess = (dispatch, user, name, email) => {
     type: SIGNUP_USER_SUCCESS,
     payload: user,
   })
-  firebase.database().ref(`users/${currentUser.uid}`)
-  .set({ name, email })
+  firebase.database().ref(`/users`)
+  .push({ name, email, createdBy: currentUser.uid })
   Actions.launch()
 }
 
@@ -89,4 +90,15 @@ const signUpUserFail = (dispatch, errorMessage) => {
 export const logoutUser = () => {
   firebase.auth().signOut()
     .then(() => Actions.launch());
+}
+
+export const userFetch = () => {
+  const { currentUser } = firebase.auth()
+
+  return (dispatch) => {
+    firebase.database().ref(`/users`).orderByChild("createdBy").equalTo(currentUser.uid)
+      .on('value', snapshot => {
+        dispatch({ type: USER_FETCH_SUCCESS, payload: snapshot.val() })
+      })
+  }
 }
