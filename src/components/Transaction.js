@@ -77,6 +77,16 @@ class Transaction extends Component {
           <View style={{ flex: 1, width: width }}>
             <CardSection>
               <Text style={{ flex: 0.3, padding: 2 }}>
+                Kode Transaksi
+              </Text>
+
+              <Text style={{ flex: 1, padding: 2 }}>
+                {rowData.uid.substr(-6)}
+              </Text>
+            </CardSection>
+
+            <CardSection>
+              <Text style={{ flex: 0.3, padding: 2 }}>
                 Date
               </Text>
 
@@ -94,6 +104,26 @@ class Transaction extends Component {
                 {rowData.name}
               </Text>
             </CardSection>
+            
+            <View style={style.cartSummaryContainer}>
+              <View style={style.accumulatorContainer}>
+                <Text style={style.totalItems}>
+                  Total Items {this.props.totalItemsInCart}
+                </Text>
+                
+                <Text style={style.totalPrice}>
+                  Total Rp. {rowData.total}
+                </Text>
+
+                <Text style={style.totalPrice}>
+                  Jumlah Bayar Rp.{rowData.bayar} 
+                </Text>
+
+                <Text style={style.totalPrice}>
+                  Jumlah Kembalian Rp. {(rowData.bayar - rowData.total)}
+                </Text>
+              </View>
+            </View>
           </View>
         )}
       />
@@ -104,32 +134,12 @@ class Transaction extends Component {
     console.log(this.props.transactions)
     return (
       <View style={{ flex: 1, flexDirection: 'column', backgroundColor: 'white' }}>
-        <View style={{ flex: .15, padding: 10 }}>
-          {this.displayTransaction()}
-        </View>
-
-        <View style={{ flex: .35, padding: 10 }}>
+        <View style={{ flex: .30, padding: 10 }}>
           {this.displayCart()}
         </View>
-
-        <View style={style.cartSummaryContainer}>
-          <View style={style.accumulatorContainer}>
-            <Text style={style.totalItems}>
-              Total Items {this.props.totalItemsInCart}
-            </Text>
-            
-            <Text style={style.totalPrice}>
-              Total Rp. {this.props.totalPrice.toFixed(2)}
-            </Text>
-
-            <Text style={style.totalPrice}>
-              Jumlah Bayar Rp. 
-            </Text>
-
-            <Text style={style.totalPrice}>
-              Jumlah Kembalian Rp. {this.props.totalPrice.toFixed(2)}
-            </Text>
-          </View>
+        
+        <View style={{ flex: .60, padding: 10 }}>
+          {this.displayTransaction()}
         </View>
 
         <View style={styles.footerStyle}>
@@ -150,6 +160,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#66cccc',
+    flex: .10
   },
   viewStyle: {
     justifyContent: 'center',

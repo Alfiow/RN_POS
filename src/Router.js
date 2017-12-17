@@ -88,7 +88,7 @@ const RouterComponent = () => {
           </Stack>
         </Drawer>
 
-        <Scene key='nodrawer' hideNavBar renderBackButton={() => (null)}>
+        <Scene key='nodrawer' hideNavBar>
 
             <Stack
               navigationBarStyle={{ backgroundColor: '#66cccc' }}

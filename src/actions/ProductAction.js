@@ -123,8 +123,8 @@ export const transactionOrder = ({ products, name, payment, bayar, total }) => {
         total: Number(total),
       })
       .then((result => {
-        const uid = result.key.toString()
-        //console.log(uid)
+        const uid = result.key
+        console.log(uid)
         products.map(res => {
           res.quantity > 0 ?
           firebase.database().ref(`/orders/${result.key}/${res.uid}`)
@@ -140,10 +140,6 @@ export const transactionOrder = ({ products, name, payment, bayar, total }) => {
             .on('value', snapshot => {
               dispatch({ type: TRANSACTION_FETCH_SUCCESS, payload: snapshot.val() })
             })
-          // firebase.database().ref(`/orders`)
-          //   .on('child_added', snapshot => {
-          //     dispatch({ type: ORDER_FETCH_SUCCESS, payload: snapshot.val() })
-          //   })
           Actions.transactions()
           })
       }))

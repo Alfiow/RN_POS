@@ -1,15 +1,22 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { ListView, FlatList } from 'react-native'
+import { ListView, FlatList, View } from 'react-native'
+import { SearchBar } from 'react-native-elements'
 import Report from './Report'
 import { reportFetch } from '../actions'
 
 class ReportContainer extends Component {
-
+  state = {
+    transactions: [],
+    text: ''
+  }
   componentWillMount() {
     this.props.reportFetch()
-    this.createDataSource(this.props)
+    this.setState({
+      transactions: this.props.transactions
+    })
+    this.createDataSource(this.state)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -24,12 +31,32 @@ class ReportContainer extends Component {
     this.dataSource = ds.cloneWithRows(transactions)
   }
 
+  handleChangeSearch(text) {
+    this.setState({
+      text: text
+    })
+  }
+
   render() {
     console.log(this.props.transactions)
     return (
-      <Report
-        transactionList={this.dataSource}
-      />
+      <View style={{ flex: 1, flexDirection: 'column', backgroundColor: 'white' }}>
+        <View style={{ flex: .10 }}>
+          <SearchBar
+            lightTheme
+            onChangeText={this.handleChangeSearch.bind(this)}
+            // onClearText={someMethod}
+            placeholder='Type Here...' />
+        </View>
+
+        <View style={{ flex: .90 }}>
+          <Report
+            transactionList={this.dataSource}
+            searchText={this.state.text}
+          />
+        </View>
+      </View>
+      
     );
   }
 }

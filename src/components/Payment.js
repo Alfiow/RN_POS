@@ -26,14 +26,14 @@ export default class Payment extends Component {
         <Content>
           <View style={style.CartProductContainer}>
             <View style={style.CartItem}>
-              <Text style={styles.pickerTextStyle}>Total bayar</Text>
+              <Text style={styles.labelStyle}>Total bayar</Text>
               <Text style={{ flex: 0.4, fontSize: 18 }}>{this.props.totalPrice}</Text>
             </View>
           </View>
 
           <View style={style.CartProductContainer}>
             <View style={style.CartItem}>
-              <Text style={styles.pickerTextStyle}>Nama Customer</Text>
+              <Text style={styles.labelStyle}>Nama Customer</Text>
               <Input
                 style={{ flex: 0.5, }}
                 placeholder='optional'
@@ -45,7 +45,7 @@ export default class Payment extends Component {
 
           <View style={style.CartProductContainer}>
             <View style={style.CartItem}>
-              <Text style={styles.pickerTextStyle}>Bayar dengan</Text>
+              <Text style={styles.labelStyle}>Bayar dengan</Text>
               <Picker
                 style={styles.picker}
                 textStyle={{ fontSize: 12, color: 'yellow' }}
@@ -62,7 +62,7 @@ export default class Payment extends Component {
 
           <View style={style.CartProductContainer}>
             <View style={style.CartItem}> 
-              <Text style={styles.pickerTextStyle}>Jumlah</Text>
+              <Text style={styles.labelStyle}>Jumlah</Text>
               <Input
                 placeholderTextColor={'grey'} 
                 style={{ flex: 0.4 }}
@@ -93,9 +93,10 @@ export default class Payment extends Component {
 }
 
 const styles = {
-  pickerTextStyle: {
+  labelStyle: {
     fontSize: 18,
     padding: 15,
+    flex: .6
   },
   picker: {
     color: '#66cccc',

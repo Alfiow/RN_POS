@@ -12,9 +12,9 @@ const EmptyCart = () => (
   </View>
 )
 
-class Transaction extends Component {
+class Report extends Component {
 
-  displayCart() {
+  displayReport() {
     console.log(this.props.transactionList)
     return (
       <ListView
@@ -22,34 +22,40 @@ class Transaction extends Component {
         style={style.CartProductContainer}
         dataSource={this.props.transactionList}
         renderRow={rowData => (
+          
           <View style={{ borderBottomWidth: 0.5, borderColor: 'grey' }}>
+            { rowData.uid.search(this.props.searchText) != -1 ?
+            <View style={{ borderBottomWidth: 0.5, borderColor: 'grey' }}>
               <View style={style.CartItem}>
-                <Text style={{ padding: 5, paddingLeft: 30, flex: .5 }}>
+                <Text style={{ padding: 5, paddingLeft: 15, flex: .6 }}>
+                  Kode Transaksi
+                </Text>
+
+                <Text style={{ flex: .5 }}>
                   {rowData.payment}
                 </Text>
 
                 <Text style={{ flex: .5 }}>
-                  Nama
-                </Text>
-
-                <Text style={{ flex: .5 }}>
-                  Jam
+                  Waktu
                 </Text>
               </View>
 
               <View style={style.CartItem}>
-                <Text style={{ padding: 5, paddingLeft: 30, flex: .5 }}>
+                <Text style={{ padding: 5, paddingLeft: 15, flex: .6, fontWeight: 'bold' }}>
+                  {rowData.uid.substr(-6)}
+                </Text>
+
+                <Text style={{ flex: .5, fontWeight: 'bold' }}>
                   {rowData.bayar}
                 </Text>
 
-                <Text style={{ flex: .5 }}>
-                  {rowData.name}
-                </Text>
-
-                <Text style={{ flex: .5 }}>
-                  {moment(rowData.createdAt).format('HH:mm')}
+                <Text style={{ flex: .5, fontWeight: 'bold' }}>
+                  {moment(rowData.createdAt).format('YYYY-MM-DD HH:mm')}
                 </Text>
               </View>
+            </View>
+            : null
+            }
           </View>
         )}
       />
@@ -60,7 +66,7 @@ class Transaction extends Component {
     return (
       <View style={{ flex: 1, flexDirection: 'column', backgroundColor: 'white' }}>
         <View style={{ flex: 3 }}>
-          {this.displayCart()}
+          {this.displayReport()}
         </View>
       </View>
     )
@@ -88,5 +94,5 @@ const styles = {
   }
 }
 
-export default Transaction
+export default Report
 
