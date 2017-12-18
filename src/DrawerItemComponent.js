@@ -25,23 +25,31 @@ class DrawerItem extends Component {
         renderRow={rowData => (
           <View style={styles.container} >
             <ProfileComponent username={rowData.name} email={rowData.email} />
-            <TouchableOpacity style={styles.menuItem}>
-              <Icon name="refresh" type="font-awesome" size={25} color="#333" style={{ margin: 15 }} />
+            <TouchableOpacity style={styles.menuItem} onPress={() => Actions.drawer() || Actions.list()}>
+              <View style={styles.iconStyle}>
+                <Icon name="refresh" type="font-awesome" size={25} color="#333" style={{ margin: 15 }} />
+              </View>
               <Text style={styles.menuItemText}>Refresh Data</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.menuItem} onPress={() => Actions.list()} >
-              <Icon name="opencart" type="font-awesome" size={25} color="#333" style={{ margin: 15 }} />
+              <View style={styles.iconStyle}>
+                <Icon name="opencart" type="font-awesome" size={25} color="#333" style={{ margin: 15 }} />
+              </View>
               <Text style={styles.menuItemText}>Transaksi</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.menuItem} onPress={() => Actions.report()}>
-              <Icon name="database" type="foundation" size={25} color="#333" style={{ margin: 15 }} />
-              <Text style={styles.menuItemText}>Data Penjualan</Text>
+              <View style={styles.iconStyle}>
+                <Icon name="database" type="foundation" size={25} color="#333" style={{ margin: 15 }} />
+              </View>
+              <Text style={styles.menuItemText}>Data Transaksi</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.menuItem}>
-              <Icon name="logout" type="simple-line-icon" size={25} color="#333" style={{ margin: 15 }} />
+            <TouchableOpacity style={styles.menuItem} onPress={() => this.props.logoutUser()}>
+              <View style={styles.iconStyle}>
+                <Icon name="logout" type="simple-line-icon" size={25} color="#333" style={{ margin: 15 }} />
+              </View>
               <Text style={styles.menuItemText}>Logout</Text>
             </TouchableOpacity>
           </View >
@@ -55,16 +63,23 @@ class DrawerItem extends Component {
 const styles = {
   container: {
     flex: 1,
-    backgroundColor: 'rgba(255,255,255,0.43)',
-    marginLeft: 15
+    backgroundColor: '#bdc3c7',
+    marginLeft: 5
   },
   menuItem: {
-    flexDirection: 'row'
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row',
+    flex: 1,
+    margin: 15,
+  },
+  iconStyle: {
+    flex: .2
   },
   menuItemText: {
     fontSize: 15,
     fontWeight: '300',
-    margin: 15,
+    flex: .8
   }
 }
 

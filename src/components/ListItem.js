@@ -103,7 +103,7 @@ class ListItem extends Component {
 
           <View style={styles.viewStyle}>
             <TouchableOpacity onPress={() => Actions.cart()}>
-              <Icon name="shopping-cart" type='action' color="black" />
+              <Icon name="opencart" type='font-awesome' color="black" />
             </TouchableOpacity>
           </View>
 

@@ -19,7 +19,9 @@ class Login extends Component {
   
   renderLoginButton() {
     if (this.props.loading) {
-      return <Spinner size="small" />
+      return (
+          <Spinner size="large" />
+      )
     }
     return (
       <Button
@@ -39,7 +41,7 @@ class Login extends Component {
     return (
       <LinearGradient
         start={{ x: 0.0, y: 0.25 }} end={{ x: 1.0, y: 1.0 }}
-        colors={['#b4b4b4', '#7d7b7a', '#535251']}
+        colors={['#bdc3c7', '#2c3e50', '#bdc3c7']}
         style={LinearGradientStyle}
       >
         
@@ -63,14 +65,16 @@ class Login extends Component {
               
         </Text>
 
-        <View>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <FloatingLabelInput 
             autoCapitalize={'none'}
             label='Email'
             value={this.props.email}
             onChangeText={text => this.props.textChanged ({ prop: 'email', text })}
           />
+        </View>
 
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <FloatingLabelInput
             autoCapitalize={'none'}
             secureTextEntry
@@ -78,13 +82,13 @@ class Login extends Component {
             value={this.props.password}
             onChangeText={text => this.props.textChanged({ prop: 'password', text })}
           />
-
-          <Text style={errorTextStyle}>
-            {this.props.error}
-          </Text>
         </View>
 
-        <View style={{ margin:7 }}>
+          <Text style={errorTextStyle}>
+            {this.props.errors}
+          </Text>
+
+        <View style={{ justifyContent: 'center', alignItems: 'center'  }}>
           {this.renderLoginButton()}
         </View>
       </LinearGradient>
@@ -110,7 +114,7 @@ const styles = {
   errorTextStyle: {
     alignSelf: 'center',
     margin: 2,
-    color: 'white',
+    color: 'red',
     fontSize: 13,
     fontFamily: 'Avenir'
   },
@@ -124,8 +128,8 @@ const styles = {
 }
 
 const mapStateToProps = ({ auth }) => {
-  const { email, password, error, loading } = auth
-  return { email, password, error, loading }
+  const { email, password, errors, loading } = auth
+  return { email, password, errors, loading }
 }
 
 export default connect(mapStateToProps, { textChanged, loginUser })(Login)

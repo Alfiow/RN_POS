@@ -36,10 +36,12 @@ class DrawerMenu extends Component {
   render() {
     //console.log(this.props.users)
     return (
-      <DrawerItemComponent
-        users={this.dataSource}
-        logoutUser={logoutUser}
-      />
+      <View style={{ flex: 1, backgroundColor: '#bdc3c7' }}>
+        <DrawerItemComponent
+          users={this.dataSource}
+          logoutUser={logoutUser}
+        />
+      </View>
     )
   }
 }

@@ -38,8 +38,7 @@ export const productFetch = () => {
   const { currentUser } = firebase.auth()
 
   return (dispatch) => {
-    //firebase.database().ref(`/products`).orderByChild("createdBy").equalTo(currentUser.uid)
-    firebase.database().ref('products')
+    firebase.database().ref(`/products`).orderByChild("createdBy").equalTo(currentUser.uid)
       .on('value', snapshot => {
         dispatch({ type: PRODUCT_FETCH_SUCCESS, payload: snapshot.val() })
       })
@@ -123,8 +122,9 @@ export const transactionOrder = ({ products, name, payment, bayar, total }) => {
         total: Number(total),
       })
       .then((result => {
-        const uid = result.key
-        console.log(uid)
+        firebase.database().ref(`/transactions/${result.key}`)
+          .update({ updateBy: result.key })
+
         products.map(res => {
           res.quantity > 0 ?
           firebase.database().ref(`/orders/${result.key}/${res.uid}`)
@@ -136,7 +136,7 @@ export const transactionOrder = ({ products, name, payment, bayar, total }) => {
               transactionID: result.key
             }) : null
 
-          firebase.database().ref(`/transactions`).orderByChild("name").equalTo(name)
+          firebase.database().ref(`/transactions`).orderByChild("updateBy").equalTo(result.key)
             .on('value', snapshot => {
               dispatch({ type: TRANSACTION_FETCH_SUCCESS, payload: snapshot.val() })
             })
@@ -147,8 +147,9 @@ export const transactionOrder = ({ products, name, payment, bayar, total }) => {
 }
 
 export const reportFetch = () => {
+  const { currentUser } = firebase.auth()
   return (dispatch) => {
-    firebase.database().ref(`/transactions`)
+    firebase.database().ref(`/transactions`).orderByChild("createdBy").equalTo(currentUser.uid)
       .on('value', snapshot => {
         dispatch({ type: REPORT_FETCH_SUCCESS, payload: snapshot.val() })
       })

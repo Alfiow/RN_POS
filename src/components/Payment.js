@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Picker } from "react-native";
+import { View, Picker, ScrollView } from "react-native";
 import { Button } from 'react-native-elements'
 import { width } from '../config/constants'
 import { Container, Header, Content, List, ListItem, Text, Separator, Input } from 'native-base';
@@ -14,15 +14,15 @@ export default class Payment extends Component {
       products, 
       name, 
       bayar, 
-      payment: payment || 'Cash',
+      payment: payment || 'Tunai',
       total: this.props.totalPrice
     })
   }
 
   render() {
     return (   
-      <Container>
-        <Content>
+      <Container style={{ flex: 1, backgroundColor: 'white' }}>
+        <ScrollView>
           <ListItem>
             <Text style={{ flex: .7 }}>Total bayar</Text>
             <Text style={{ flex: .3, fontSize: 18 }}>{this.props.totalPrice}</Text>
@@ -41,15 +41,15 @@ export default class Payment extends Component {
           <ListItem>
             <Text style={{ flex: .7 }}>Bayar dengan</Text>
             <Picker
-              style = {{ flex: .3 }}
+              style = {{ flex: .4 }}
               textStyle={{ fontSize: 12, color: 'yellow' }}
               mode="dropdown"
               placeholder="Select One"
               selectedValue={this.props.payment.payment}
               onValueChange={value => this.props.paymentUpdate({ prop: 'payment', value })}
             >
-              <Picker.Item label="Cash" value="Cash" />
-              <Picker.Item label={this.props.totalPrice} value="Credit" />
+              <Picker.Item label="Tunai" value="Tunai" />
+              <Picker.Item label="Kredit" value="Kredit" />
             </Picker>
           </ListItem>
 
@@ -59,7 +59,7 @@ export default class Payment extends Component {
               placeholderTextColor={'grey'} 
               style={{ flex: .3 }}
               //value={payment}
-              placeholder={'00000'}
+              placeholder={'Rp.'}
               keyboardType='numeric'
               onChangeText={value => this.props.paymentUpdate({ prop: 'bayar', value })} 
             />
@@ -67,7 +67,7 @@ export default class Payment extends Component {
 
           <Button
             buttonStyle={{ marginTop: 20, width: width, height: 40, borderWidth: 1, borderColor: 'white', alignSelf: 'center' }}
-            backgroundColor="white"
+            backgroundColor="grey"
             borderRadius={20}
             title="Bayar"
             color="#66cccc"
@@ -77,7 +77,7 @@ export default class Payment extends Component {
             onPress={this.onButtonPress.bind(this)}
           />
 
-        </Content>
+        </ScrollView>
       </Container>
     );
   }

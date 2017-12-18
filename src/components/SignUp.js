@@ -8,6 +8,7 @@ import { Icon, Button } from 'react-native-elements'
 import LinearGradient from 'react-native-linear-gradient';
 import * as ActionsFunctions from '../actions';
 import { FloatingLabelInput } from './common/FloatingLabelInput';
+import { Spinner } from './common'
 
 class SignUp extends React.Component {
   onNameChange(text) {
@@ -19,11 +20,32 @@ class SignUp extends React.Component {
     this.props.signUpUser({ email, password, name });
   }
 
+  renderLoginButton() {
+    if (this.props.loading) {
+      return (
+          <Spinner size="large" />
+      )
+    }
+    return (
+    <Button
+      buttonStyle={{ marginTop: 20, width: 250, height: 40, borderWidth: 1, borderColor: 'white', alignSelf: 'center' }}
+      backgroundColor="white"
+      borderRadius={20}
+      title="Daftar"
+      color="#fe161d"
+      fontFamily="Avenir"
+      fontWeight="bold"
+      fontSize={16}
+      onPress={this.onSignUpButtonPress.bind(this)}
+    />
+    )
+  }
+
   render() {
     return (
       <LinearGradient
         start={{ x: 0.0, y: 0.0 }} end={{ x: 1.0, y: 1.0 }}
-        colors={['#b4b4b4', '#7d7b7a', '#535251']}
+        colors={['#bdc3c7', '#2c3e50', '#bdc3c7']}
         style={{
           flex: 1,
           justifyContent: 'center',
@@ -33,6 +55,16 @@ class SignUp extends React.Component {
         <StatusBar
           barStyle='light-content'
         />
+
+        <View style={{ position: 'absolute', top: 25, left: 8, justifyContent: 'center', alignItems: 'flex-start', width: 30, height: 30, zIndex: 10 }}>
+          <Icon
+            type="simple-line-icon"
+            name="arrow-left"
+            color="white"
+            size={24}
+            onPress={() => this.props.navigation.goBack()}
+          />
+        </View>
 
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Text style={{
@@ -73,18 +105,9 @@ class SignUp extends React.Component {
               <Text style={styles.errorTextStyle}>
                 {this.props.error}
               </Text>
+
+              {this.renderLoginButton()}
               
-              <Button
-                buttonStyle={{ marginTop: 20, width: 250, height: 40, borderWidth: 1, borderColor: 'white', alignSelf: 'center' }}
-                backgroundColor="white"
-                borderRadius={20}
-                title="Daftar"
-                color="#fe161d"
-                fontFamily="Avenir"
-                fontWeight="bold"
-                fontSize={16}
-                onPress={this.onSignUpButtonPress.bind(this)}
-              />
             </View>
           </View>
         </View>
@@ -97,7 +120,7 @@ const styles = {
   errorTextStyle: {
     alignSelf: 'center',
     margin: 2,
-    color: 'white',
+    color: 'red',
     fontSize: 13,
     fontFamily: 'Avenir',
   },

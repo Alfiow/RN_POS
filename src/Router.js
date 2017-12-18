@@ -28,7 +28,7 @@ const RouterComponent = () => {
       <Stack>
         <Scene key='launch' component={Launch} hideNavBar />
         <Scene key='login' component={Login} hideNavBar />
-        <Scene key='signup' component={SignUp} title='Data Toko Anda' />
+        <Scene key='signup' component={SignUp} hideNavBar />
 
         <Scene key='productadd' component={ProductAdd} title='Tambah produk' />
     
@@ -36,7 +36,7 @@ const RouterComponent = () => {
           hideNavBar
           key="drawer"
           contentComponent={DrawerContent}
-          //drawerWidth={240}
+          // drawerWidth={240}
           drawerImage={MenuIcon}
         >
           <Stack
@@ -47,10 +47,6 @@ const RouterComponent = () => {
                 <View style={style.CartItem}>
                   <TouchableOpacity onPress={() => Actions.drawer() || Actions.list()} style={{ padding: 10 }}>
                     <Icon name="refresh" type="navigation" size={25} color="white" />
-                  </TouchableOpacity>
-
-                  <TouchableOpacity onPress={() => Actions.cart()} style={{ padding : 10 }}>
-                    <Icon name="search" type="action" size={25} color="white" />
                   </TouchableOpacity>
 
                   <TouchableOpacity onPress={() => Actions.productadd()}>
@@ -70,15 +66,6 @@ const RouterComponent = () => {
           <Stack
             navigationBarStyle={{ backgroundColor: '#66cccc' }}
             titleStyle={{ color: '#f7f7f7', alignSelf: 'flex-start' }}
-            renderRightButton={() => {
-              return (
-                <View style={style.CartItem}>
-                  <TouchableOpacity onPress={() => Actions.drawer() || Actions.list()} style={{ padding: 10 }}>
-                    <Icon name="refresh" type="navigation" size={25} color="white" />
-                  </TouchableOpacity>
-                </View>
-              )}
-            }
           >
             <Scene
               key='report'
@@ -137,8 +124,8 @@ const RouterComponent = () => {
               renderLeftButton={() => {
                 return (
                   <View style={style.CartItem}>
-                    <TouchableOpacity onPress={() => Actions.cart()} style={{ padding: 10 }}>
-                      <Icon name="arrow-back" type="navigation" size={25} color="white" />
+                    <TouchableOpacity onPress={() => Actions.list()} style={{ padding: 10 }}>
+                      <Icon name="arrow-top-left" type="material-community" size={25} color="white" />
                     </TouchableOpacity>
                   </View>
                 )}

@@ -23,18 +23,15 @@ class Launch extends Component {
         colors={['#485563', '#485563']}
         style={LinearGradientStyle}
       >
+        <View style={{ flex: .40, justifyContent: 'center', alignItems: 'center', paddingTop: 20 }}>
+          <Image source={require('./images/if_social_store_house_710261.png')} style={{ width: 120, height: 100 }} />
 
-        <StatusBar
-          barStyle='light-content'
-        />
+          <Text style={textStyle}>
+            POS
+          </Text>
+        </View>
 
-        <Image source={require('./images/if_social_store_house_710261.png')} style={{ width: 120, height: 100 }} />
-
-        <Text style={textStyle}>
-          POS
-        </Text>
-
-        <View style={{ margin: 7 }}>
+        <View style={{ flex: .60 }}>
           <Text style={{ backgroundColor: 'transparent', color: 'white', fontFamily: 'Avenir', fontSize: 14, textAlign: 'center', alignItems: 'center', marginTop: 15, marginBottom: 7 }}>
             Sudah punya akun ?
           </Text>
@@ -44,7 +41,8 @@ class Launch extends Component {
             backgroundColor='#4BC0C8'
             title='Masuk'
             fontFamily='Avenir'
-            fontSize={16}
+            fontSize={14}
+            borderRadius={100}
             onPress={this.onButtonPress.bind(this)}
           />
 
@@ -58,7 +56,8 @@ class Launch extends Component {
             title='Daftar'
             color='white'
             fontFamily='Avenir'
-            fontSize={16}
+            fontSize={14}
+            borderRadius={100}
             onPress={this.onSignUpButtonPress.bind(this)}
           />
         </View>
@@ -70,12 +69,12 @@ class Launch extends Component {
 const styles = {
   LinearGradientStyle: {
     flex: 1,
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center'
   },
   textStyle: {
-    fontSize: 25,
-    margin: 10,
+    fontSize: 20,
     color: 'white',
     fontFamily: 'avenir',
     fontWeight: 'bold',
@@ -83,9 +82,7 @@ const styles = {
     backgroundColor: 'transparent'
   },
   buttonStyle: {
-    margin: 20,
-    width: width,
-    height: 50,
+    height: 30,
     borderWidth: 1,
     borderColor: 'white',
     alignSelf: 'center',

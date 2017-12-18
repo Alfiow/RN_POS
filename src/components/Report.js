@@ -42,7 +42,7 @@ class Report extends Component {
 
               <View style={style.CartItem}>
                 <Text style={{ padding: 5, paddingLeft: 15, flex: .6, fontWeight: 'bold' }}>
-                  {rowData.uid.substr(-6)}
+                  {rowData.uid.substr(1, 6)}
                 </Text>
 
                 <Text style={{ flex: .5, fontWeight: 'bold' }}>

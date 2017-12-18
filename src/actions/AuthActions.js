@@ -27,8 +27,7 @@ export const loginUser = ({ email, password }) => {
     
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(user => loginUserSuccess(dispatch, user))
-      .catch((error) => {
-        console.log(error)
+      .catch(() => {
         loginUserFail(dispatch)
       })
   }  
@@ -74,8 +73,8 @@ const signUpUserSuccess = (dispatch, user, name, email) => {
     type: SIGNUP_USER_SUCCESS,
     payload: user,
   })
-  firebase.database().ref(`/users`)
-  .push({ name, email, createdBy: currentUser.uid })
+  firebase.database().ref(`/users/${currentUser.uid}`)
+  .set({ name, email, createdBy: currentUser.uid })
   Actions.launch()
 }
 

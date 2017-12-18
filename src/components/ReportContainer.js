@@ -41,7 +41,7 @@ class ReportContainer extends Component {
     console.log(this.props.transactions)
     return (
       <View style={{ flex: 1, flexDirection: 'column', backgroundColor: 'white' }}>
-        <View style={{ flex: .10 }}>
+        <View style={{ flex: .15 }}>
           <SearchBar
             lightTheme
             onChangeText={this.handleChangeSearch.bind(this)}
@@ -49,7 +49,7 @@ class ReportContainer extends Component {
             placeholder='Type Here...' />
         </View>
 
-        <View style={{ flex: .90 }}>
+        <View style={{ flex: .80 }}>
           <Report
             transactionList={this.dataSource}
             searchText={this.state.text}

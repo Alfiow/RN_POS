@@ -8,12 +8,6 @@ import { Container, Header, Content, List, ListItem, Text, Separator } from 'nat
 
 import style from './CartStyles'
 
-const EmptyCart = () => (
-  <View style={style.emptyCart}>
-    <Text>{`Refresh\n    atau\nInput produk`}</Text>
-  </View>
-)
-
 class Transaction extends Component {
 
   constructor(props) {
@@ -80,7 +74,7 @@ class Transaction extends Component {
               </Text>
 
               <Text style={{ flex: .3 }}>
-                {rowData.uid.substr(-6)}
+                {rowData.uid.substr(1, 6)}
               </Text>
             </ListItem>
 
@@ -153,7 +147,7 @@ class Transaction extends Component {
           {this.displayCart()}
         </View>
         
-        <View style={{ flex: .60, padding: 10 }}>
+        <View style={{ flex: .70, padding: 10 }}>
           {this.displayTransaction()}
         </View>
 
@@ -175,7 +169,6 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#66cccc',
-    flex: .10
   },
   viewStyle: {
     justifyContent: 'center',
