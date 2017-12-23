@@ -27,11 +27,11 @@ export default (state = INITIAL_STATE, action) => {
     case TEXT_CHANGED:
       return { ...state, [action.payload.prop]: action.payload.text }
     case LOGIN_USER:
-      return { ...state, loading: true, error: '' }
+      return { ...state, loading: true, errors: '' }
     case LOGIN_USER_SUCCESS:
       return { ...state, ...INITIAL_STATE, user: action.payload }
     case LOGIN_USER_FAIL:
-      return { ...state, errors: 'Kata sandi salah', password: '', loading: false }
+      return { ...state, errors: action.payload, password: '', loading: false }
     case NAME_CHANGED:
       return { ...state, name: action.payload }
     case SIGNUP_USER:
